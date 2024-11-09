@@ -1,0 +1,2 @@
+// Calcium Trusted Server List
+https://api-calcium.foxaxu.com

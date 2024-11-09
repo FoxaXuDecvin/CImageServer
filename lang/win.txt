@@ -1,0 +1,439 @@
+calcium_script_text_package
+//Text Package
+$sign_file_output(/en-us);
+_$directmode;
+_$nolog;
+//Language File
+// English US
+
+_var add = "_var";
+
+add _$lang.about="English (US)";
+add _$lang.language= "Language";
+
+//Public Char
+add _$lang.presskey = "Press Enter";
+
+//Crash Info
+
+add _$lang.crash.title = "   :(  Calcium Kernel crashed";
+add _$lang.crash.t1 = "We are unable to analyze the cause of the error";
+add _$lang.crash.t2 = "If this issue affects your use";
+add _$lang.crash.t3 = "Report it to us on https://www.foxaxu.com/contact";
+add _$lang.crash.errcode = "Error Code :  ";
+add _$lang.crash.kcode = "Kernel return status code";
+add _$lang.crash.report = "Please include the repro method with the report";
+
+//FoxaXu
+add _$lang.foxaxu.t1 = "Thanks your support";
+
+//Kernel
+
+add _$lang.runfail = "Calcium Script Run failed";
+add _$lang.filenotfound = "File Not Found";
+add _$lang.stoprun = "Calcium Kernel Stop Running";
+
+add _$lang.sys.t1 = "System Command is disabled on";
+add _$lang.sys.t2 = "Your administrator won't allow you to run this command";
+add _$lang.sys.t3 = "Please use command";
+
+add _$lang.cfgedit.r = "Your settings is has been modified. use _reload to Reload all configs";
+add _$lang.reloading = "Please wait ...  Reloading Calcium";
+add _$lang.reload = "_Rcapi Config is reload";
+add _$lang.notNum = "is not a Digital";
+
+add _$lang.if.err.t1 = "[Warning] _if command Error";
+add _$lang.if.err.t2 = "[Warning] Command return a null result not a true or false";
+add _$lang.calc.zero = "[Calc] 0 is not allow";
+
+add _$lang.nullcmd = "  [Error] Unknown command or not a var. File";
+
+add _$lang.logfail = "  [WARNING] Log File Create failed. this error maybe affect your operations. File Path :  ";
+
+add _$lang.pause = "Press Enter to continue ";
+
+add _$lang.runargs = "Run Argument ";
+
+//Extend
+
+add _$lang.loadfail = "Load File Failed";
+add _$lang.complete = "Complete";
+add _$lang.fail = "Fail";
+
+//Update 24-5-29
+
+add _$lang.act_fail = "activate Failed";
+add _$lang.act_succ_t1 = "Successfully activated your product,";
+add _$lang.act_succ.t2 = "Reopen this program to unlock full features";
+add _$lang.act_need = "Please re-execute it after activation";
+add _$lang.act_info = "Activate Calcium";
+add _$lang.notactivate = "This version has not been activated";
+add _$lang.activatehelp = "Use the _$activate directive in shell mode to activate this version";
+add _$lang.Access_Denied = "Access Denied";
+
+//Update 24-6-5
+
+add _$lang.untrusted.server = "Untrusted Server...  Calcium is using an untrusted server, if it is a private server that you set up yourself, please ignore this message.";
+
+//Update 24-6-6
+
+add _$lang.activateModified = "Detected Path is modified";
+add _$lang.activateRe = "please reactivate calcium";
+
+//Update 24-6-12
+
+add _$lang.cfgver = "FoxaXu Confidential Version";
+add _$lang.timebomb = "This Version evaluation period will end on";
+add _$lang.false.violation = "You have violated our confidentiality agreement, we have stopped your activation license, please contact us with any questions.";
+
+//Update 24-6-20
+add _$lang.tbd.warning = "The evaluation period for this release has ended, and to prevent this release from being used for non-test scenarios, we will be locking this release completely in the near future";
+
+//Shell Title 
+
+_shelltitle " Calcium {VersionID}  -> Shell Mode . FoxaXu 2024 > "
+
+//Update 24-9-11
+
+add _$lang.req.clfmv = "This procedure requires a CLFM version higher than ";
+
+//Exit
+_free add;
+_return "Ok";
+
+$sign_file_close;
+$sign_file_output(/errcode_list.txt);
+_$directmode;
+_$nolog;
+//Error Code List
+
+_var add = "_var";
+
+//System Kernel Error
+
+//Windows
+add _erc_1 = "SYSTEM_KERNEL_FAIL";
+add _erc_-1073741819 = "SYSTEM_KERNEL_CONFLICT";
+add _erc_-1073740791 = "MEMORY_ACCESS_CRASH";
+add _erc_-1073741571 = "STACK_OVER_FLOW";
+
+//Linux
+add _erc_34304 = "SYSTEM_KERNEL_CONFLICT";
+add _erc_35584 = "SYSTEM_KERNEL_CONFLICT";
+
+
+//Debugs
+add _erc_661 = "END_OF_EVALUATION_PERIOD";
+
+
+
+//END OF LOAD
+_free add;
+_return "Ok";
+$sign_file_close;
+$sign_file_output(/ja);
+_$directmode;
+_$nolog;
+//言語ファイル
+//日本語
+
+_var add = "_var";
+
+add _$lang.about="日本語 (Japan)";
+add _$lang.language= "言語";
+
+//公共Char
+add _$lang.presskey = "Enter キーを押します";
+
+//クラッシュ情報
+
+add $lang.crash.title = " :(を追加します。  カルシウムカーネルがクラッシュする」";
+add _$lang.crash.t1 = "現時点では、この問題の原因を分析できません";
+add _$lang.crash.t2 = "この問題が使用に影響する場合";
+add _$lang.crash.t3 = "https://www.foxaxu.com/contact 報告してください";
+add _$lang.crash.errcode = "エラーコード : ";
+add _$lang.crash.kcode = "カーネルの戻り値";
+add _$lang.crash.report = "このエラーを再現する方法をレポートに含めてください";
+
+//フォックスサシュ
+add _$lang.foxaxu.t1 = "ご支援ありがとうございます";
+
+//カーネル
+
+add _$lang.runfail = "Calcium Script runfailed";
+add _$lang.filenotfound = "ファイルが見つかりません";
+add _$lang.stoprun = "カルシウムカーネルの終了";
+
+add _$lang.sys.t1 = "プログラムはシステム命令の呼び出しを禁止されています";
+add _$lang.sys.t2 = "管理者がこのコマンドを許可していません";
+add _$lang.sys.t3 = "ディレクティブを使用してください";
+
+add _$lang.cfgedit.r = "設定が変更されました。_reloadを使用してすべての設定をリロードしてください";
+add _$lang.reloading = "お待ちください...  カルシウムのリロード」";
+add _$lang.reload = "_Rcapi configuration reloaded";
+add _$lang.notNum = "有効な番号ではありません";
+
+add _$lang.if.err.t1 = "[警告] _if命令エラー";
+add _$lang.if.err.t2 = "[警告] このディレクティブは、真か偽かの判断に使用できない値を返します";
+add _$lang.calc.zero = "[Calc] 0 は許可されません";
+
+add _$lang.nullcmd = "[エラー] 不明な命令または変数、入力が正しいかどうかを確認してください";
+
+add _$lang.logfail = "[警告] ログファイルの作成に失敗しました。デバッグ環境に影響を与える可能性があります, ファイルパス : ";
+
+add _$lang.pause = "続行するにはEnterキーを押してください";
+
+add_$lang.runargs = "実行パラメータを追加します";
+
+//延ばす
+
+add _$lang.loadfail = "ファイルの読み込みに失敗しました";
+add _$lang.complete = "complete";
+add _$lang.fail = "失敗する";
+
+//アップデート 24-5-29
+
+add _$lang.act_fail = "アクティベーションに失敗しました";
+add _$lang.act_succ_t1 = "現在のバージョンは正常にアクティブ化されました。";
+add _$lang.act_succ.t2 = "このプログラムを再度開いて、すべての機能のロックを解除します";
+add _$lang.act_need = "アクティベーション後にこのコマンドを再実行してください";
+add _$lang.act_info = "カルシウムを活性化";
+add _$lang.notactivate = "このバージョンはアクティブ化されていません";
+add _$lang.activatehelp = "シェルモードでこのバージョンをアクティベートするには、_$activate ディレクティブを使用してください";
+add _$lang.Access_Denied = "アクセスが拒否されました";
+
+//Update 24-6-5
+
+add _$lang.untrusted.server = "不明なサードパーティサーバー...  Calciumは信頼リストにないAPIを使用しているため、誰がこのサーバーを作成したかを確認できません。";
+
+//Update 24-6-6
+
+add _$lang.activateModified = "Calcium の複製バージョンを使用している";
+add _$lang.activateRe = "カルシウムを引き続き使用したい場合は、カルシウムを再アクティブ化してください";
+
+//Update 24-6-12
+
+add _$lang.cfgver = "FoxaXu Confidential Version";
+add _$lang.timebomb = "このバージョンの評価期間は次のとおりです ";
+add _$lang.false.violation = "あなたは私たちの秘密保持契約に違反しました、私たちはあなたのアクティベーションライセンスを停止しました、ご不明な点がございましたらお問い合わせください。";
+
+//Update 24-6-20
+add _$lang.tbd.warning = "このリリースの評価期間は終了しており、このリリースがテスト以外のシナリオに使用されないようにするために、このリリースは将来完全にロックダウンされます";
+
+//Shell Title 
+
+_shelltitle " Calcium {VersionID}  -> Shell モード . FoxaXu 2024 > "
+
+//Update 24-9-11
+
+add _$lang.req.clfmv = "この手順では、CLFM バージョンが ";
+
+//出口
+_free add;
+_return "Ok";
+
+$sign_file_close;
+$sign_file_output(/zh-cn);
+_$directmode;
+_$nolog;
+//Language File
+// Simplified Chinese
+
+_var add = "_var";
+
+add _$lang.about="简体中文 (中国)";
+add _$lang.language= "语言";
+
+//Public Char
+add _$lang.presskey = "按 Enter";
+
+//Crash Info
+
+add _$lang.crash.title = "   :(  Calcium 内核崩溃了";
+add _$lang.crash.t1 = "我们暂时无法分析造成此问题的原因";
+add _$lang.crash.t2 = "如果这个问题影响了你的使用";
+add _$lang.crash.t3 = "请向我们报告 https://www.foxaxu.com/contact";
+add _$lang.crash.errcode = "错误代码 :  ";
+add _$lang.crash.kcode = "内核返回值";
+add _$lang.crash.report = "请在报告中包含重现此错误的方式";
+
+//FoxaXu
+add _$lang.foxaxu.t1 = "感谢你的支持";
+
+//Kernel
+
+add _$lang.runfail = "Calcium Script 运行失败";
+add _$lang.filenotfound = "文件未找到";
+add _$lang.stoprun = "Calcium 内核终止运行";
+
+add _$lang.sys.t1 = "已禁止程序调用系统指令";
+add _$lang.sys.t2 = "你的管理员不允许使用此命令";
+add _$lang.sys.t3 = "请使用指令";
+
+add _$lang.cfgedit.r = "你的设置已经更改，使用 _reload 以重新加载所有配置";
+add _$lang.reloading = "请稍等...  正在重新加载Calcium";
+add _$lang.reload = "_Rcapi 配置已重新加载";
+add _$lang.notNum = "不是个有效的数字";
+
+add _$lang.if.err.t1 = "[Warning] _if 指令错误";
+add _$lang.if.err.t2 = "[Warning] 该指令返回了一个无法用于判断true或false的值";
+add _$lang.calc.zero = "[Calc] 0 不被允许";
+
+add _$lang.nullcmd = "  [Error] 未知指令或变量，请检查你的输入是否正确";
+
+add _$lang.logfail = "  [WARNING] 日志文件创建失败，可能会影响调试环境，文件路径 : ";
+
+add _$lang.pause = "按Enter键继续 ";
+
+add _$lang.runargs = "运行参数 ";
+
+//Extend
+
+add _$lang.loadfail = "尝试加载文件失败";
+add _$lang.complete = "完成";
+add _$lang.fail = "失败";
+
+//Update 24-5-29
+
+add _$lang.act_fail = "激活失败";
+add _$lang.act_succ_t1 = "成功的激活了当前版本,";
+add _$lang.act_succ.t2 = "重新打开此程序以解锁完整的功能";
+add _$lang.act_need = "请在激活后重新执行此指令";
+add _$lang.act_info = "激活 Calcium";
+add _$lang.notactivate = "此版本尚未激活";
+add _$lang.activatehelp = "在Shell模式下使用 _$activate 指令激活此版本";
+add _$lang.Access_Denied = "拒绝访问";
+
+//Update 24-6-5
+
+add _$lang.untrusted.server = "未知的第三方服务器...  Calcium 正在使用一个不在信任列表中的API，我们无法确认此服务器由谁创建，如果你信任此服务器，则可以忽略本信息";
+
+//Update 24-6-6
+
+add _$lang.activateModified = "你正在使用一份复制版本的 Calcium";
+add _$lang.activateRe = "如想继续使用请重新激活 Calcium";
+
+//Update 24-6-12
+
+add _$lang.cfgver = "FoxaXu 机密版本";
+add _$lang.timebomb = "此版本的评估期限为 ";
+add _$lang.false.violation = "你因为违反了我们的保密协议，我们已经停止你的激活许可证，如有任何问题请联系我们. ";
+
+//Update 24-6-20
+add _$lang.tbd.warning = "此版本评估期限已经结束，请使用新的内部版本，超过评估期限此版本将会自动锁定";
+
+//Shell Title 
+
+_shelltitle " Calcium {VersionID}  -> Shell 模式 . FoxaXu 2024 > "
+
+//Update 24-9-11
+
+add _$lang.req.clfmv = "此程序要求 CLFM 版本高于  ";
+
+//Exit
+_free add;
+_return "Ok";
+
+$sign_file_close;
+$sign_file_output(/zh-tw);
+_$directmode;
+_$nolog;
+//Language File
+// Simplified Chinese
+
+_var add = "_var";
+
+add _$lang.about="繁體中文 （中國）";
+add _$lang.language= "語言";
+
+//Public Char
+add _$lang.presskey = "按 Enter";
+
+//Crash Info
+
+add _$lang.crash.title = "   :(  Calcium 內核崩潰了";
+add _$lang.crash.t1 = "我們暫時無法分析造成此問題的原因";
+add _$lang.crash.t2 = "如果這個問題影響了你的使用";
+add _$lang.crash.t3 = "請向我們報告 https://www.foxaxu.com/contact";
+add _$lang.crash.errcode = "錯誤代碼 ： ";
+add _$lang.crash.kcode = "內核返回值";
+add _$lang.crash.report = "請在報告中包含重現此錯誤的方式";
+
+//FoxaXu
+add _$lang.foxaxu.t1 = "感謝你的支援";
+
+//Kernel
+
+add _$lang.runfail = "Calcium Script 運行失敗";
+add _$lang.filenotfound = "檔未找到";
+add _$lang.stoprun = "Calcium 內核終止運行";
+
+add _$lang.sys.t1 = "已禁止程序調用系統指令";
+add _$lang.sys.t2 = "你的管理員不允許使用此命令";
+add _$lang.sys.t3 = "請使用指令";
+
+add _$lang.cfgedit.r = "你的設置已經更改，使用 _reload 以重新載入所有配置";
+add _$lang.reloading = "請稍等...  正在重新載入Calcium」";
+add _$lang.reload = "_Rcapi 配置已重新載入";
+add _$lang.notNum = "不是個有效的數位";
+
+add _$lang.if.err.t1 = "[Warning] _if 指令錯誤";
+add _$lang.if.err.t2 = "[Warning] 該指令返回了一個無法用於判斷true或false的值";
+add _$lang.calc.zero = "[Calc] 0 不被允許";
+
+add _$lang.nullcmd = " [Error] 未知指令或變數，請檢查你的輸入是否正確";
+
+add _$lang.logfail = " [WARNING] 日誌檔創建失敗，可能會影響調試環境，檔路徑 ： ";
+
+add _$lang.pause = "按Enter鍵繼續 ";
+
+add _$lang.runargs = "運行參數 ";
+
+//Extend
+
+add _$lang.loadfail = "嘗試載入文件失敗";
+add _$lang.complete = "完成";
+add _$lang.fail = "失敗";
+
+//Update 24-5-29
+
+add _$lang.act_fail = "激活失敗";
+add _$lang.act_succ_t1 = "成功的啟動了當前版本，";
+add _$lang.act_succ.t2 = "重新打開此程式以解鎖完整的功能";
+add _$lang.act_need = "請在啟動後重新執行此指令";
+add _$lang.act_info = "啟動 Calcium";
+add _$lang.notactivate = "此版本尚未啟動";
+add _$lang.activatehelp = "在Shell模式下使用 _$activate 指令啟動此版本";
+add _$lang.Access_Denied = "拒絕訪問";
+
+//Update 24-6-5
+
+add _$lang.untrusted.server = "未知的第三方伺服器...  Calcium 正在使用一個不在信任清單中的API，我們無法確認此伺服器由誰創建，如果你信任此伺服器，則可以忽略本資訊";
+
+//Update 24-6-6
+
+add _$lang.activateModified = "你正在使用一份複製版本的 Calcium";
+add _$lang.activateRe = "如想繼續使用請重新啟動 Calcium";
+
+//Update 24-6-12
+
+add _$lang.cfgver = "FoxaXu 機密版本";
+add _$lang.timebomb = "此版本的評估期限為 ";
+add _$lang.false.violation = "您違反了我們的保密協議，我們已停止您的啟動許可證，如有任何問題，請與我們聯繫。 ";
+
+//Update 24-6-20
+add _$lang.tbd.warning = "此版本評估期限已經結束，為防止此版本用於非測試場景，此版本將在未來被徹底鎖定";
+
+//Shell Title 
+
+_shelltitle " Calcium {VersionID}  -> Shell 模式 . FoxaXu 2024 > "
+
+//Update 24-9-11
+
+add _$lang.req.clfmv = "此程式要求 CLFM 版本高於  ";
+
+//Exit
+_free add;
+_return "Ok";
+
+$sign_file_close;

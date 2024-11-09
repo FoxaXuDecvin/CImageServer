@@ -1,0 +1,1030 @@
+Calcium Project 脚本制作向导
+Calcium Open Script Lang (COS Lang)教程
+在开始写代码前请仔细阅读易出错的提示
+请在检查代码时再次仔细阅读易错警告
+重点阅读 对易错易出问题部分的提醒
+如果想快速上手，可以直接阅读 @@重点总结
+
+注意： 
+    此帮助文档仅适用于 114.11.2.5  Release 的版本
+    高版本或低版本可能指令格式存在改动
+
+    注意 :  在教程中的
+    Code------------------------------------- Start
+    Code------------------------------------- End
+    是代码划分线
+    这不是代码的一部分
+
+
+一. 开始 。。
+   什么是 Calcium Project
+
+Calcium Project 是由FoxaXu 开发， FoxaXu维护的一个开源脚本项目
+Calcium Project 项目使用C++ 进行搭建
+Calcium Project 是基于 FoxaXu Dev 开发的 OpenCppLangTab 作为框架进行开发
+Calcium Project 适用于 Linux / Windows 系统 如果你想在其他系统使用请使用源代码进行重新编译 
+如果你想使用AI进行代码生成请将此文稿优先投喂
+
+项目网址
+Github :   https://github.com/FoxaXuDecvin/Calcium_Project_Code  在这里你能下载到最新的Calcium版本
+foxaxu 的官网 https://www.foxaxu.com
+
+以下简称 Calcium
+
+Calcium 脚本使用专门的格式进行制作，默认文件后缀名为 .ca
+默认使用 text
+
+
+二. Calcium 主程序以及运行参数
+
+Calcium 运行后会生成一些辅助文件
+配置文件 设置存储于 calcium-settings.cfg
+
+默认运行Calcium会自动安装语言文件
+你可以使用 "_cfgedit Language = zh-cn" 切换为简体中文
+
+默认打开Calcium 会自动运行 Calcium Shell
+
+Shell你可以执行所有的Calcium的指令，Shell一般用于调试目的
+
+为防止不安全的服务器引起安全问题，我们会检查服务器是否能被信任
+
+如果因为网络问题无法启动，请在 配置文件中 设置 TrustedServerCheck 为 false
+
+Calcium -run <脚本文件> -args <脚本附加参数>  --让Calcium运行指定脚本
+Calcium -shell                              --打开 Calcium Shell
+Calcium -nolang                             --Calcium 启动后不加载语言资源
+Calcium -direct                             --Calcium 启动后 启用 UseDirectRead，关闭后失效
+Calcium -optimi <脚本文件>                   --尝试对脚本进行指定优化 (自动添加 _$directmode 和 _$nolog， 并会去除一些无用的语句一加快读取 此功能不能使用于进行pack打包后的脚本);
+Calcium -pack/-unpack <Pack包> -to <保存/解压 的 文件/目录>              --让Calcium对脚本进行打包或解包，仅支持TEXT格式，不支持二进制文件
+Calcium -help                               --让Calcium输出帮助文档
+Calcium -version                            --让Calcium打印版本信息
+
+部分参数无法堆叠, 例如 -version  -help
+
+
+三. Calcium 的配置文件指导
+以下为默认的配置文件
+calcium_settings.cfg -->
+
+ //BuildShell SipCfg  --Use  true/false      --默认文件注释，无作用
+$CalciumVersion=114.10.4.5;                  --配置文件上一次使用的版本，每次启动程序都将自动更新此版本信息
+$EnableSystemCommand=true;                   --启用 允许Calcium执行系统system函数，启用此项目则允许脚本执行 Windows cmd 或 Linux Terminal 等... 的指令
+$EnableAntiCrash=true;                       --启用 防崩溃保护， 请注意，此项目并不能完全保护Calcium完全不会崩溃。此功能为在发生致命错误后执行 Calcium 的 问题报告与重新启动 Calcium 的作用
+$EnableCrashReload=true;                     --启用 崩溃后重启， 启用后，如果Calcium崩溃后，按任意键将会自动重新启动Calcium，此重启会还原所有参数
+$EnableLogRecord=true;                       --启用 日志记录，   启用后会自动保存所有的日志，到logs文件夹，shell将默认使用 ShellLog.log ，普通脚本为 <脚本名称> + _LogRec.log ,此功能可以使用 _$nolog 单独关闭
+$AllowSuperUser=false;                       --保留设置，暂时没有作用
+$AllowDirectoryEdit=false;                   --同上
+$AllowThirdPartyPlugin=false;                --同上
+$AllowShellEdit=true;                        --允许在 Shell 中，使用 _cfgedit 进行对配置文件的编辑 
+$AllowScriptEdit=false;                      --允许在脚本内，使用 _cfgedit 进行对配置文件的编辑 
+$UseDirectRead=false;                        --使用直接读取模式，此功能可使用 _$directmode 单独开启,此功能可使用直接读取模式，不根据 ";" 符号切割指令
+$TrustedServerCheck=true;                    --受信任的服务器检查，此功能需要使用网络连接
+$OffLangCheck=false;                         --关闭语言检查, 启用后将不加载语言内容
+//ShellSettings
+$AutoOpenShellAfterRun=true;                 --在默认运行后打开 Shell， 如果设置为false则默认运行后将自动关闭Calcium，
+$EnableShellLog=true;                        --启用对 Shell 的日志记录
+//Bind
+$AutoRun=null;                               --配置自动运行的脚本
+$AutoRunArgs=null;                           --配置自动运行脚本的附加参数
+//PathBind
+$DefaultPluginPath={path}/Plugin;            --默认插件(未启用) 的存放文件夹目录 {path} 代表当前运行目录 {oclt_path} 一般为 用户目录/.OpenCppLangTab 以下同上
+$DefaultPluginScript={path}/script;          --默认脚本 的存放文件夹目录
+$DefaultLogRecord={path}/logs;               --默认日志 的存放文件夹目录
+$DefaultLanguagePath={path}/lang;            --默认语言 的存放文件夹目录
+//Display Settings
+$Language=zh-cn;                             --当前Calcium使用语言
+$SecondLanguage=en-us;                       --第二语言，用于在制作语言时，部分语言翻译不全，将会使用第二语言进行显示.
+//Windows Only
+$EnforceUTF-8=true;                          --此选项只对Windows生效，启用将会将控制台强制切换到 UTF-8 编码
+//Server
+$RootAPIServer=https://api.foxaxu.com/calcium/serverapi;                        -- Root服务器配置，如果你想使用自定义服务器请确保此服务器在信任表中，否则你需要关闭 TrustedServerCheck
+$Kernelactivate=nokey；                                                         -- 适用于 内测版本，正常版本此选项无任何作用
+$ExecuteFile=E:\Calcium-Project\CPR_Fixed\Calcium\Release\Calcium.exe;          -- 可执行文件 地址， 默认此项目为自动配置无需更改
+
+如果你使用的为官方版本 此配置文件通常不会被加密
+
+
+
+
+四. 指令与语法
+
+使用 "//" 作为注释
+使用 ";" 作为指令结尾
+
+默认不输入将会返回 empty 数据
+
+符号 ":" 与 ";" 开头的语句将被列为标记符号，不会被执行
+
+指令 1 返回 true， 指令 0 返回false   指令 true 返回 true , 指令 false 返回 false
+
+Calcium 读取方式允许你直接在文本中使用 " 而不必使用 \" 例如 "Calc"i"um" 直接输出 Calc"i"um 而不用写成 "Calc\"i\"um" 的错误写法(此问题不影响运行)
+
+Calcium 把 " 符号识别为指令， 默认执行 "H" 将会返回 H ， 如果{a}为变量 "Hello World". 执行 "{a}" 将被指向 "Hello World"  将返回 Hello World 
+
+Calcium 把 ' 符号也识别为指令， 默认执行 'H' 将会返回 H ， 但如果{a}为变量 "Hello World“. 执行 "{a}" 不会被指向 "Hello World"  只会返回原数据 "{a}" 
+
+Calcium 如果指令为数字将会返回原内容， 例如 _cout 123 将会输出 123 而无需 " 或 '
+
+如果你想调用 {a} 变量 请使用 "{a}" 在语句中
+
+
+   1. Calcium Kernel 内部指令
+
+   _1 定义变量
+
+   Calcium 使用  _var 作为变量定义,  _free  为删除变量/释放变量
+
+   Calcium的变量为全局替换
+
+   Calcium的变量定义没有要求，你甚至可以使用 abc 直接定义为变量 _var abc = "114514";  则 _cout "abc" 则会直接输出 114514
+
+   所以我们建议你使用 {} 作为变量标记以防止与普通文本冲突 例如 _var {abc} 则指令为 _cout "{abc}";
+   注意 :  变量声明时如果使用 {} 来命名则 {}也是变量的一部分   例如 :  {abc}变量，使用时请输入 {abc} 而不是 abc
+
+   不需要的变量请记得释放变量，可以降低内存使用
+
+   例如
+
+Code------------------------------------- Start
+//Example Calcium Script
+
+_var {hello} = "Hello World"; //将 {hello} 定义,  Calcium将会把 {hello} 指向 "Hello World" 内容
+_cout "{hello}";              //_cout 指令执行输出内容。  将会吧 "{hello}" 作为指令执行，执行后返回 Hello World ,并输出 hello world
+_exit;                        //退出脚本
+
+
+Code------------------------------------- End
+   这段指令展示了如何使用变量
+
+
+
+
+   calcium使用 _free 进行变量释放
+   如
+
+Code------------------------------------- Start
+//Example Calcium Script
+
+_var {hello} = "Hello World"; //将 {hello} 定义,  Calcium将会把 {hello} 指向 "Hello World" 内容
+_cout "{hello}";              //_cout 指令执行输出内容。  将会吧 "{hello}" 作为指令执行，执行后返回 Hello World ,并输出 hello world
+
+_free {hello};                //_free 将会释放变量 {hello}，此时变量将不存在
+_cout "{hello}";              //_cout 指令执行输出内容。  将会吧 "{hello}" 作为指令执行，执行后返回 {hello} 并输出 {hello}
+
+_exit;                        //退出脚本
+
+Code------------------------------------- End
+   这段指令展示了变量如何删除
+
+
+
+   如果你想退出脚本，请使用  _exit;
+   如果当前脚本为调用，可使用  _return "需要返回的数据";
+   你可以使用   _script<"将要调用的脚本"> "附加参数";  调用其他脚本
+   _script 函数默认返回 调用脚本 _return 回来的数据
+   例如
+
+脚本A
+Code------------------------------------- Start
+//Script A
+
+_cout "Hello World";
+_var {return} = _script<"脚本B">;
+_cout "{return}";
+_exit;
+
+
+Code------------------------------------- End
+
+脚本B
+Code------------------------------------- Start
+//Script B
+
+_cout "This is Script B";
+_return "Script B Return message";
+
+Code------------------------------------- End
+
+   执行脚本A将会输出
+
+   Hello World
+   This is Script B
+   Script B Return message
+
+   此代码展示脚本如何被调用
+
+
+
+   2.调试/配置指令
+   此指令只用于配置和调试某些项目时会使用到
+   _cfgedit / _cfgread 相同作用，
+   
+   但_cfgread只具备读取
+
+   _cfgedit 用法 ： _cfgedit <设置选项> = <要改变的内容>;
+
+   我们建议你使用 _cfgedit;
+
+   例如如何判断Calcium能否调用系统指令
+   _if(_cp(_cfgedit EnableSystemCommand,"true"))| _cout "Calcium Can use System Command";
+   _if(!_cp(_cfgedit EnableSystemCommand,"true"))| _cout "Calcium Can not use System Command";
+
+   _reload将重新加载Calcium的配置与语言文件 
+   
+   _$analysis 导出分析文件 <仅面向开发者>
+
+
+
+   3. 内核扩展指令
+
+   _prt "输出的内容";         ：  输出信息格式,但不换行   格式 :  _prt "输出的内容";
+   _cout "输出的内容";        ：  输出信息格式,换行       格式 :  _cout "输出的内容";
+
+    _system "要执行的指令" ;  :  此指令需要配置文件启用 EnableSystemCommand. 执行 Windows cmd 或 Linux Terminal 的指令. 格式 :   _system "要执行的指令" ;
+
+   _pause;                   :  暂停执行指令 类似于 Windows CMD的 pause，   格式 :  _pause; 无任何参数可用
+
+   _sleep "时间 (秒)";                :  请注意! _sleep指令 使用的是 秒为单位， 不是毫秒，错误的参数会导致严重的问题. 延迟执行指令 默认单位秒  格式 :  _sleep 3； (睡眠 3 秒)
+
+   _execute ("运行的程序") "参数" ;   : 打开系统的应用程序 :  默认格式 :  _execute ("运行的程序") "参数" , 例如在Windows系统中 _execute ("C:\Windows\Explorer.exe") "D:\" --> 将会使用Explorer打开 D盘根目录
+
+   _goto :Example;                   : Goto 指令. 注意，goto指令标记请使用  :符号 + 名称 + ;符号  例如 :Example
+
+_goto例子
+Code------------------------------------- Start
+//Goto Example
+
+_cout "step 1";
+_goto :test;
+
+_cout "step 2";
+
+:test;
+_cout "step 3";
+_exit
+
+Code------------------------------------- End
+   此脚本将只会输出 step 1 与 step 3，
+   step 2 被自动跳过
+
+   _clear；  : 清空输出  格式  :  _clear;
+
+   _script <"要执行的脚本"> "附加参数";  前一张已展示过如何使用
+
+   _cp(数据A,数据B);    : 该指令全程为 compare, 用于比较内容是否相同 _ 格式 :  _cp(数据A,数据B);     _cp("1","2"); 返回false    _cp("1","1"); 返回true 也可使用 _cp(1,1); =true  _cp(1,2); =false
+
+   Compare指令扩展
+   大小比较
+   _<(数字A,数字B);     :如果 数字A < 数字B 返回true
+   _=<(数字A,数字B);     :如果 数字A =< 数字B 返回true
+   _>(数字A,数字B);     :如果 数字A > 数字B 返回true
+   _=>(数字A,数字B);     :如果 数字A => 数字B 返回true
+
+   _if (要执行的指令)| <如果为true，执行 | 符号后面的指令>;               if指令为判断指令 用法 :   _if (要执行的指令)| <如果为true，执行 | 符号后面的指令>;  注意，由于Calcium内核实现的问题，不支持使用 { } 符号执行多个指令
+   _if (! 要执行的指令)| <如果为false，才执行 | 符号后面的指令>;          反向IF指令   如果在括号内加上 ! 符号  :  _if (! 要执行的指令)| <如果为false，才执行 | 符号后面的指令>;
+   注意指令的 | 符号后请不要使用花括号执行多个指令， Calcium当前的版本不支持这种格式,请使用 goto 代替.
+   _if(!指令)| {   }是错误写法, 请用 _goto 代替
+   不支持 else elseif _else _elseif
+
+
+   4. 计算指令
+
+   基础的加减乘除指令
+
+   方法
+
+   _+(数字A,数字B);  返回值为计算值
+
+   例如:
+
+   _+(12,15); 加 : 返回27
+   _-(20,7);  减 : 返回13
+   _*(7,4);   乘 : 返回28
+   _/(8,4);   除 : 返回2， 如果有余数 _/(11,4) = 2 ~ 3    则只输出 2
+
+   
+
+   5. Get 指令
+
+   _getenv; 获取系统变量 例子 :  _getenv "systemroot"； 在Windows环境中一般会返回 C:\Windows
+
+   _getrunid;  获取运行ID 无作用
+
+   _getline;   打开一个输入框，允许用户输入内容，函数的返回值将会是用户的输入值
+
+   _getargs;   获取脚本执行的参数,   例如 _script <"a.ca"> "par"  _getargs 将会返回 par
+               注意，_getargs 只能单独执行
+               例如
+               _cout _getargs;
+               或
+               _var {args} = _getargs;
+
+   _getfile;   获取当前执行的脚本
+
+   _getexec;   获取当前 calcium 的地址
+
+   _getrand (最大数,最小数);   获取随机数 格式 :   _getrand (最大数,最小数)   数值的大小受 int 最大值影响
+
+   _getkernel; 获取当前Calcium 内核版本
+
+   _getpath;   获取当前程序执行目录
+
+      获取当前时间, 系统API， 返回的时间由系统提供
+   _getfulltime;   获取当前全部时间 返回值 2024/08/31, 11:45:14
+   _getdate;       返回当前日期 例如 2024/08/31
+   _getclock;      返回当前时间 例如 11:45:14
+
+   _isNum "值"；    判断值是否为数字, 格式   _isNum <值>  例如 _isNum "123" = true    _isNum "Hello" = false
+
+
+
+   6. 预处理指令
+
+   _$directmode  使用 UseDirectRead 加快执行速度
+   _$nolog       禁用 日志记录， 有助于加快速度
+
+   _$shell_lock  退出脚本不退出Shell
+
+   7.系统文件/文件夹IO
+
+   _file_exist "要判断的文件"; 存在返回true 不存在返回false
+
+   _dir_make "要创建的文件夹"; 创建文件夹指令
+
+   _dir_remove "要删除文件夹"; 删除文件夹指令 
+
+   _dir_exist "要判断的文件夹指令"; 判断文件夹是否存在 存在true 不存在false
+
+
+   
+   _file_copy ("源文件","复制到的地址"); 复制文件指令
+
+   _file_del "要删除的文件"; 删除文件指令
+
+   _file_open "打开文件的指令";  使用SoildWrite打开文件
+
+   _file_write "要写入的内容";  将内容写入文件，请先使用 _file_open指令打开需要写入的文件
+   _file_write 支持的额外扩展
+   _file_write 支持标记并替换 %time% 将会返回 _getclock  %date% 将会返回 _getdate  %fulltime% 将会返回 _getfulltime 
+
+   例如 _file_write "[%time%] Test";  输出 [12:31:11] Test
+      _file_write "[%date%] Test";  输出 [2024/08/31] Test
+      _file_write "[%fulltime%] Test";  输出 [2024/08/31,12:31:11] Test
+
+
+
+   7. 集成的第三方扩展指令
+
+   _file_read("要读取的文件","读取的行数");  文件读取指令
+
+   _textprint; "要打印的文件"； 将文件内容输出至控制台， 无变量替换，如果内容中包含变量的话不会影响输出内容 适用于无变量内容展示
+
+   _typefile; "要打印的文件"； 将文件内容输出至控制台， 有变量替换，如果内容中包含变量的话 变量将会被替换至指向的内容 适用于有变量的内容展示
+
+   _url_get("网页URL","保存到的本地地址");  下载文件，需提供URL，然后将会下载到 "保存到的本地地址" 的位置
+
+
+
+   8. 内置的SipCfg创建配置文件工具
+
+   _sipcfg.open "要打开的文件";   打开选择的配置文件，如不存在将会创建一个
+
+   _sipcfg "配置名称";     读取配置文件内容
+
+   _sipcfg "配置名称" = "内容";  修改配置文件内容
+
+   _sipcfg.remove "要删除的配置名称";  删除配置项
+   
+   使用例子
+
+   _sipcfg.open "a.txt";  将会打开一个叫 a.txt 的配置文件
+
+   _sipcfg cc; 将会返回 a.txt 配置文件中 cc项的内容 如  $cc=123; 将会返回123
+
+   _sipcfg cc=456; 将会把 cc项直接更改 如  $cc=123; 改为 $cc=456;
+
+   _sipcfg.remove cc;  将会直接删除 cc项 移除配置文件中国的 $cc=456；
+
+
+五，完结
+
+感谢你阅读到最后，
+我们非常感谢你的阅读
+我们建议你在没有调试需求的脚本开头都加上
+_$directmode 和 _$nolog
+
+这里是foxaxu
+如有任何问题请发邮箱至 hello@foxaxu.com
+谢谢
+
+在开始写代码前请仔细阅读易出错的提示
+请在检查代码时再次仔细阅读易错警告
+重点阅读 对易错易出问题部分的提醒
+
+
+
+
+
+
+对易错易出问题部分的提醒
+   Calcium 不支持 直接在 if 中调用 == 执行判断,例如
+   _if("aa" == "cc") | _cout "Right"; 这是错误的写法;
+   请使用
+   _if(_cp("aa","cc")) | _cout "Right";
+
+   
+   _getline 不是 getline 请不要遗漏 _ 符号
+   _getline 请不要单独调用，单独调用不会有任何作用
+   _getline正确调用方法
+   _var {usertype} = _getline;
+
+
+   _cout / _prt  指令内不支持执行命令,请不要使用类似于
+   _cout "Vs = " _+(1,2); 的写法，这是错误的案例
+
+   警告 : 启用 UseDirectRead 或 _$directmode 后
+   请在 ; 符号后换行，
+   直接读取模式不支持一行执行多个指令
+
+   如果只需要单独的一个变量也请不要忘记加上 "" 符号
+   例如 
+     _cp("{example}","abc");
+
+   Calcium目前不支持while循环指令
+   不支持使用花括号切割指令，在 if后面只能执行一条指令 不支持 &&的运算符号
+   变量声明时如果使用 {} 来命名则 {}也是变量的一部分，使用时请一起输入
+   也不支持else elseif _elseif _else等指令
+   需要实现此功能请使用 _goto 指令进行代替
+
+   变量相关
+   使用 {name} 做变量时是一体， 如果要引用变量请使用 "{name}", 使用 name 做变量则在使用的时候请直接用 "name"
+
+   部分函数若能接受两个以上的参数需要使用 () 引用
+   例如
+       
+       _cp("a","b");  请不要使用 _cp "a","2"; 格式，这是错误的格式
+       _cp("Go Trust","Fook off");  请不要使用 _cp "Go Trust","Fook off"; 格式，这是错误的格式
+
+       _url_get("https://www.foxaxu.com/example.txt","/a.txt");
+       _url_get("网页URL","保存到的本地地址");
+       
+       _file_read("a.txt","3");
+       _file_read("b.txt","12");
+
+   但部分函数为另一个格式
+   例如 
+       _script <"a.ca"> "args";
+
+   如果代码执行过程中要暂停3秒
+   请使用
+   _sleep 3;
+   而不是
+   _pause 3;
+
+   _pause; 指令不能添加参数,请不要随机添加代码
+
+
+   Calcium指令不支持使用 + 号进行字符串合并
+   请不要使用类似于
+   _cout "aa" + "bb";
+   或者
+   _cout "Time = " + _getfulltime;
+
+   请使用
+   _var {ft} = _getfulltime;
+   _cout "Time = {ft}";
+
+   请不要再 " " 双引号内执行指令，双引号内所有内容都只能为文本或变量，如果要执行指令请看下方
+   例如
+Code------------------------------------- Start
+//错误的写法
+
+_cout "Time is {_getfulltime}";
+
+//正确的写法
+
+_var {temp} = _getfulltime;
+_cout "Time is {temp}";
+_free {temp};
+
+Code------------------------------------- End
+
+   
+部分_if指令后需要执行多命令的
+请不要使用
+Code------------------------------------- Start
+_if(_cp{"a","a"})| {
+   //execute A
+   //execute B
+}else{
+   //execute C
+   //execute B
+}
+
+_cout "OK";
+_exit;
+Code------------------------------------- End
+
+
+请按以下方法代替
+Code------------------------------------- Start
+//_IF Example
+
+_if(_cp{"a","a"})| _goto :MAIN_A_B;
+:BACKRUN;
+_if(!_cp{"a","a"})| _goto :MAIN_C_D;
+:BACKRUN_A;
+_cout "OK";
+_exit;
+
+
+:MAIN_A_B;
+//execute A
+//execute B
+_goto :BACKRUN;
+
+:MAIN_C_D
+//execute C
+//execute D
+_goto :BACKRUN_A;
+
+
+Code------------------------------------- End
+
+请注意 _$nolog  作用为关闭日志记录
+请不要输入成 _$nolang 了
+_$nolang 不是一个指令
+请检查你的输入是否有这个问题
+
+重点注意:   Text读取可能会出现的问题
+此问题可能会在 UseDirectRead 模式后出现
+1.变量后面请不要使用双引号 花括号 以及&&等
+否则可能引起崩溃等问题
+2.不建议在脚本结束直接使用 .exit; 我们建议您在前面一行使用 _pause; 暂停后执行
+避免退出出现的太突兀
+3.脚本结尾必须使用 .exit; 否则内核会继续读取不存在的行数导致溢出报错
+
+
+
+
+@@重点总结
+
+一、脚本的基础知识
+脚本格式：Calcium脚本文件的默认扩展名为.ca，并且它们通常是纯文本文件。
+注释：使用//开始单行注释。
+指令结束：大多数指令以;结束。
+标签：标签以:开始，并以;结束。
+
+二、变量处理
+定义变量：使用_var {变量名} = "值";来定义变量。
+释放变量：使用_free {变量名};来释放变量。
+变量使用：在字符串中使用变量时，必须使用{变量名}形式来引用变量。
+
+三、内置函数
+输出指令：_cout "内容";用于输出内容并换行，而_prt "内容";则输出内容但不换行。
+系统指令：_system "指令";执行系统命令，需要在配置文件中启用EnableSystemCommand。
+暂停与延迟：_pause;暂停执行（类似Windows的pause），_sleep "秒数";用于延迟执行。
+文件执行：_execute ("路径") "参数";用于执行外部程序。
+脚本调用：_script <"脚本路径"> "参数";用于调用其他脚本。
+比较指令：_cp(数据A,数据B);用于比较两个值是否相等。
+条件判断：_if (条件)| <指令>;用于条件执行，_if (!条件)| <指令>;用于反向条件执行。
+跳转指令：_goto :标签名;用于程序流程跳转。
+
+四、常用功能
+配置文件管理：_sipcfg用于读取和修改配置文件。
+获取环境变量：_getenv "变量名";获取系统环境变量。
+获取输入：_getline;用于接收用户输入。
+获取脚本参数：_getargs;获取传递给脚本的参数。
+获取当前时间和日期：_getfulltime;、_getdate;、_getclock;分别用于获取完整的时间、日期及时间。
+获取随机数：_getrand (最大数,最小数);用于生成指定范围内的随机数。
+
+五、调试和配置
+配置文件编辑：使用_cfgedit <设置项> = <新值>;来修改配置文件中的值。
+重载配置：使用_reload;重新加载配置文件。
+分析文件：使用_$analysis;导出分析文件，仅面向开发者。
+
+六、运行参数
+-run <脚本文件> -args <附加参数>：运行指定脚本。
+-shell：打开Calcium Shell。
+-nolang：启动时不加载语言文件。
+-direct：启用直接读取模式。
+-optimi <脚本文件>：尝试优化脚本。
+-pack/-unpack <打包文件> -to <目标路径>：对脚本进行打包或解包。
+-help：输出帮助文档。
+-version：打印版本信息。
+通过以上介绍，你应该能够开始理解和编写一些基本的Calcium脚本了。记得在实际应用中根据需要调整配置文件，并遵循官方文档中的注意事项。
+
+
+
+
+
+
+以下为一些示范脚本
+
+//一个基于SMA协议的 Calcium 版本测试程序 
+Code------------------------------------- Start
+//Caz.ca
+_$directmode;
+_$nolog;
+_cout "check your Calcium Version";
+_var _$calciumZ.version = "2.31.1";
+_if(_cp(_sma "test","true")) | _goto :PASSCheckSMA;
+_clear;
+_cout "Advanced Calcium Z Tool _$calciumZ.version";
+_cout "Your Calcium Version is not Support New SMA Function";
+_cout "Press any key to Exit";
+_pause;
+_return "false";
+:PASSCheckSMA;
+_cout "Advanced Calcium Z Tool ... Please wait";
+_var _$api_switch = _script<"caz_gethook.cah"> "test";
+_var _$cz.name = _script<"caz_gethook.cah"> "cname";
+_var _$cz.codename = _script<"caz_gethook.cah"> "codename";
+_var _$cz.kv = _script<"caz_gethook.cah"> "kerV";
+_var _$cz.oclt = _script<"caz_gethook.cah"> "ocltV";
+_var _$cz.knver$info = _script<"caz_gethook.cah"> "kvget";
+_var _$cz.rcv$info = _script<"caz_gethook.cah"> "rcvget";
+_var _$cz.system$info = _script<"caz_gethook.cah"> "getsys";
+_var _$cz.kc$vid = _script<"caz_gethook.cah"> "kcvid";
+_var _$cz.ke$vid = _script<"caz_gethook.cah"> "kevid";
+_var _$cz.ks$vid = _script<"caz_gethook.cah"> "ksvid";
+_var _$cz.gh$vid = _script<"caz_gethook.cah"> "ghvid";
+_var _$cz.ma$vid = _script<"caz_gethook.cah"> "mavid";
+_var _$cz.se$vid = _script<"caz_gethook.cah"> "sevid";
+_var _$cz.ig$vid = _script<"caz_gethook.cah"> "igvid";
+_var _$cz.te$vid = _script<"caz_gethook.cah"> "tevid";
+_var _$cz.pgapi$vid = _script<"caz_gethook.cah"> "pgapi";
+_goto :DisplayText;
+:DisplayText;
+//_clear;
+_cout "Advanced Calcium-Z _$calciumZ.version";
+_cout "C Title          _$cz.name";
+_cout "CodeName :       _$cz.codename API Status :  _$api_switch";
+_cout "Kernel Version:  _$cz.kv";
+_cout "OpenCppLangTab:  _$cz.oclt";
+_cout "---------------------------------------------";
+_cout "Kernel Message";
+_cout "Version ID :          _$cz.knver$info";
+_cout "RCapi Version :       _$cz.rcv$info";
+_cout "Run System :          _$cz.system$info";
+_cout "---------------------------------------------";
+_cout "Support Command";
+_cout "kernel_cmd_VID :      _$cz.kc$vid";
+_cout "kernel_ENV_VID :      _$cz.ke$vid";
+_cout "kernel_Secure_VID :   _$cz.ks$vid";
+_cout "get_hook_VID :        _$cz.gh$vid";
+_cout "math_api_VID :        _$cz.ma$vid";
+_cout "Sys_Exec_VID :        _$cz.se$vid";
+_cout "Is_Get_VID :          _$cz.ig$vid";
+_cout "Third_Exec_VID :      _$cz.te$vid";
+_cout "Plugin_API_VID :      _$cz.pgapi$vid";
+_pause;
+_return "ok";
+Code------------------------------------- End
+
+Code------------------------------------- Start
+//caz_gethook.ca
+_$directmode;
+_$nolog;
+_var TempArgs = _getargs;
+_var _gethook_SMA = _sma "TempArgs";
+_if(_cp("_gethook_SMA","null"))|_return "[Not Support]";
+_if(!_cp("_gethook_SMA","null"))| _return "_gethook_SMA";
+_return "DetectCrash.GetHook _gethook_SMA" ;
+
+Code------------------------------------- End
+
+
+
+一个模拟系统的 BVM代码
+
+Code------------------------------------- Start
+//BVM.cah
+
+// BIATO CORE
+// VIRTUAL MACHINE API
+// SCRIPT API
+_$directmode
+_$nolog
+
+_if(_cp("{SESSION_TOKEN}","TRUE"))| _goto :ERR_StLock;
+_var {SESSION_TOKEN} = "TRUE";
+
+:REBOOTAPI;
+_var {BiatoVersion} = "R_10.4.2";
+_var {Hardware} = "Biato Virtual Machine Platform (simulation hardware)";
+_var {Platform} = "Biato Core({BiatoVersion}, Virtual simulation system)";
+
+//MAINUI
+//Load Resource
+_var $BVM_BOOTUI = "{path}/script/bvm/bootui";
+_var $BVM_BOOTLOADER = "{path}/script/bvm/bootloader";
+
+//Load Screen
+_clear;
+_sleep 1;
+_typefile "$BVM_BOOTUI";
+
+//Optimi Boot Device
+_if(!_file_exist "$BVM_BOOTLOADER")| _goto :ERR_NOBL;
+
+
+//Open bootloader
+_sipcfg.open "$BVM_BOOTLOADER";
+
+_var {BVM_Bootloader} = _sipcfg boot;
+
+//Check Volume Manager
+_if(!_file_exist "{BVM_Bootloader}")| _goto :ERR_NOVOL;
+
+_sipcfg.open "{BVM_Bootloader}";
+_var {BVM_OSBOOT} = _sipcfg DefaultLoader;
+
+//Start Entry Boot to System
+
+_cout "Loading {BVM_OSBOOT}";
+_clear;
+
+_if(!_file_exist "{BVM_OSBOOT}")| _goto :ERR_NOVBL;
+
+_var {BVM_PW_REQ} = _script<"{BVM_OSBOOT}">;
+_if(_cp("{BVM_PW_REQ}","$reboot"))|_goto :REBOOTAPI;
+_if(_cp("{BVM_PW_REQ}","$shutdown"))|_goto :ShutdownAPI;
+_cout "Boot Loader is not working. Press Enter to Reboot";
+_pause;
+_goto :REBOOTAPI;
+
+
+:ShutdownAPI;
+//Shutdown
+_cout "Biato Virtual Machine is shutdown";
+_cout "Last Request :  {BVM_PW_REQ}";
+_var {SESSION_TOKEN} = "FALSE";
+_return "close";
+_exit;
+
+//ERR PAGE
+
+:ERR_NOBL;
+_cout "Error No Boot loader";
+_pause;
+_goto :REBOOTAPI;
+
+:ERR_NOVOL;
+_cout "Error Fail load Boot Volume :  {BVM_Bootloader}";
+_pause;
+_goto :REBOOTAPI;
+
+:ERR_NOVBL;
+_cout "Bootmgr  {BVM_OSBOOT}  is missing. Select other boot to load";
+_pause;
+_goto :REBOOTAPI;
+
+:ERR_StLock;
+_cout "Session Lock is Not allowed running this system";
+_return "fall";
+
+
+Code------------------------------------- End
+
+
+Calcium 下的 NATVC 项目 的加载内核 原代码
+
+Code------------------------------------- Start
+//ntvload.ca
+
+//NATVC SYSTEM LOADER
+//NATVC KERNEL
+//NATVC LOAD
+_$directmode
+_$nolog
+
+//Load ENV
+_var {NATVC_BOOTUI} = "{NATVC_DISK}/Natvc/res/natvc-bootui.txt";
+_var {NATVC_CONFIG_SYS} = "{NATVC_DISK}/Natvc/config/SYSTEM";
+_var {NATVC_CONFIG_USERS} = "{NATVC_DISK}/Natvc/config/USERS";
+_var {NATVC_CONFIG_SETUP} = "{NATVC_DISK}/Natvc/config/SETUP";
+
+_sipcfg.open "{NATVC_CONFIG_SYS}";
+
+_var {SYS_LOG} = _sipcfg NATVC_SYS_LOG;
+_var {SYS_LOG} = "{NATVC_DISK}/{SYS_LOG}";
+
+_file_del "{SYS_LOG}";
+_file_open "{SYS_LOG}";
+
+_file_write "@ NATVC is a simulation system. based on Calcium_Project(EXE) and BVM_Project(Script). Copyright FoxaXu 2024";
+
+//Check last startup;
+_sipcfg.open "{NATVC_CONFIG_SETUP}";
+
+_var {last_startup} = _sipcfg last_startup;
+_var {last_shutdown} = _sipcfg last_shutdown;
+
+_if(_cp(_sipcfg shutdown,"1")) | _goto :failbootRecovery;
+_sipcfg shutdown = 1;
+:BackToNormalBoot;
+_var {temp_record_time} = _getfulltime;
+_sipcfg last_startup = {temp_record_time};
+
+//Display
+_file_write "@ [%time%][SYSTEM] System is Startup on %fulltime%";
+_clear;
+_typefile "{NATVC_BOOTUI}";
+
+_if(!_file_exist "{NATVC_CONFIG_SYS}") | _return "{NATVC_CONFIG_SYS}";
+_if(!_file_exist "{NATVC_CONFIG_USERS}") | _return "{NATVC_CONFIG_USERS}";
+
+//Load System
+_sipcfg.open "{NATVC_CONFIG_SYS}";
+
+//Type Record Time
+
+_file_write "[%time%][NATVC Boot Loader] Last Startup (Normal)  :  {last_startup} ";
+_file_write "[%time%][NATVC Boot Loader] Last Shutdown (Normal) :  {last_shutdown} ";
+
+//Check Hardware
+
+_file_write "[%time%][Hardware]System Hardware :   {Hardware}";
+_file_write "[%time%][Hardware]System Platform :   {Platform}";
+
+_file_write "[%time%][Kernel] Load config/SYSTEM";
+
+_var {SYS_ROOT} = _sipcfg SYS_ROOT;
+_var {SYS_ROOT} = "{NATVC_DISK}/{SYS_ROOT}";
+
+_file_write "[%time%][Kernel] System Root :  {SYS_ROOT}";
+
+_var {SYS_NROOT} = _sipcfg SYS_NROOT;
+_var {SYS_NROOT} = "{NATVC_DISK}/{SYS_NROOT}";
+
+_file_write "[%time%][Kernel] System Root (System Folder) :  {SYS_NROOT}";
+
+_var {SYS_KERNEL_VID} = _sipcfg SYS_KERNEL_VID;
+
+_file_write "[%time%][Kernel] System Inside Version :  {SYS_KERNEL_VID}";
+
+_var {SYSNAME} = _sipcfg SYS_REG_NAME;
+
+_file_write "[%time%][Kernel] System Register Name :  {SYSNAME}";
+
+_var {SYS_USERDIR} = _sipcfg SYS_USERDIR;
+_var {SYS_USERDIR} = "{NATVC_DISK}/{SYS_USERDIR}";
+
+_file_write "[%time%][Kernel] User Directory is bind on :  {SYS_USERDIR}";
+
+_var {NATVC_USERSVC} = _sipcfg NATVC_USERSVC;
+_var {NATVC_USERSVC} = "{SYS_ROOT}/{NATVC_USERSVC}";
+
+_var {NATVC_USERMENU} = _sipcfg NATVC_USERMENU;
+_var {NATVC_USERMENU} = "{SYS_ROOT}/{NATVC_USERMENU}";
+
+_var {NATVC_ROOTSHELL} = _sipcfg NATVC_ROOTSHELL;
+_var {NATVC_ROOTSHELL} = "{SYS_ROOT}/{NATVC_ROOTSHELL}";
+
+_var {NATVC_EXPLORER_SECURE} = _sipcfg NATVC_EXPLORER_SECURE;
+
+_var {NATVC_SHUTDOWN_SECURE} = _sipcfg NATVC_SHUTDOWN_SECURE;
+
+_file_write "[%time%][Kernel] Explorer Secure Mode is :  {NATVC_EXPLORER_SECURE}";
+_file_write "[%time%][Kernel] Shutdown Secure Mode is :  {NATVC_SHUTDOWN_SECURE}";
+
+_var {NATVC_CRASH_EXECUTE} = _sipcfg NATVC_CRASH_EXECUTE;
+
+_var {NATVC_LOGON_TEXT} = _sipcfg NATVC_LOGON_TEXT;
+_var {NATVC_LOGON_TEXT} = "{NATVC_DISK}/{NATVC_LOGON_TEXT}";
+
+_var {NATVC_LOGGING_TEXT} = _sipcfg NATVC_LOGGING_TEXT;
+_var {NATVC_LOGGING_TEXT} = "{NATVC_DISK}/{NATVC_LOGGING_TEXT}";
+
+_var {NATVC_LOGOFF_TEXT} = _sipcfg NATVC_LOGOFF_TEXT;
+_var {NATVC_LOGOFF_TEXT} = "{NATVC_DISK}/{NATVC_LOGOFF_TEXT}";
+
+_var {NATVC_SHUTDOWN_TEXT} = _sipcfg NATVC_SHUTDOWN_TEXT;
+_var {NATVC_SHUTDOWN_TEXT} = "{NATVC_DISK}/{NATVC_SHUTDOWN_TEXT}";
+
+_var {NATVC_RESTART_TEXT} = _sipcfg NATVC_RESTART_TEXT;
+_var {NATVC_RESTART_TEXT} = "{NATVC_DISK}/{NATVC_RESTART_TEXT}";
+
+_var {NATVC_WAIT_REST_TEXT} = _sipcfg NATVC_WAIT_REST_TEXT;
+_var {NATVC_WAIT_REST_TEXT} = "{NATVC_DISK}/{NATVC_WAIT_REST_TEXT}";
+
+_var {NATVC_EXPLORER_TEXT} = _sipcfg NATVC_EXPLORER_TEXT;
+_var {NATVC_EXPLORER_TEXT} = "{NATVC_DISK}/{NATVC_EXPLORER_TEXT}";
+
+_var {NATVC_CRASH_TEXT} = _sipcfg NATVC_CRASH_TEXT;
+_var {NATVC_CRASH_TEXT} = "{NATVC_DISK}/{NATVC_CRASH_TEXT}";//变量字符串合成法
+
+_file_write "[%time%][Kernel] SYSTEM Startup Complete";
+_file_write "[%time%][Kernel] Load Default SystemUser (SYSTEM)";
+
+_var {PRE_AUTOENTRY_PASSWORD} = "@EMPTY";
+
+//Restore Default CS
+_var {NATVC_CRASH_CODE} = "KERNEL_EXCEPTION_STOP";
+_var {NATVC_CRASH_MESSAGE} = "Kernel Suspended and Stop Running";
+
+_file_write "[%time%][Kernel] Load Anti Crash Service";
+
+//Complete
+//Load SYSTEM USER
+
+_file_write "[%time%][Kernel] Load -->  NATVC User Experience Service (NUES)";
+
+_if(!_file_exist "{NATVC_USERSVC}") | _return "{NATVC_USERSVC}";
+_var {PRE_AUTOENTRY_PASSWORD} = "%sysKerneluserPSWD";
+
+_file_write "[%time%][Kernel] SYSTEM Startup Succeeded";
+_file_write "[%time%][Kernel] Load User Main Service";
+
+_var {K_SERVICE_CALLBACK} = _script <"{NATVC_USERSVC}"> "SYSTEM";
+
+_file_write "[%time%][Kernel] NUES Service is Closed";
+
+_if(_cp("{K_SERVICE_CALLBACK}","user_logoff")) | _goto :SHUTDOWN_OK;
+_if(_cp("{K_SERVICE_CALLBACK}","user_shutdown")) | _goto :SHUTDOWN_OK;
+_if(_cp("{K_SERVICE_CALLBACK}","user_restart")) | _goto :RESTART_OK;
+
+_if(_cp("{K_SERVICE_CALLBACK}","logoff")) | _goto :SHUTDOWN_OK;
+_if(_cp("{K_SERVICE_CALLBACK}","$shutdown")) | _goto :SHUTDOWN_OK;
+_if(_cp("{K_SERVICE_CALLBACK}","$reboot")) | _goto :RESTART_OK;
+
+_file_write "[%time%][Kernel][Error] NUES Report a unexpected error on Callback :  {K_SERVICE_CALLBACK}";
+
+_file_write "[%time%][Kernel][Error] An attempt is being made to analyze the issue and generate a report";
+
+//Exception
+_if(_cp("{K_SERVICE_CALLBACK}","failsys")) | _goto :FAILSYSMODE;
+
+_var {NATVC_CRASH_CODE} = "NULL_UE_SERVICE_CALLBACK";
+_var {NATVC_CRASH_MESSAGE} = "NATVC User Experience Service(NUES) Return a NULL Status code :  {K_SERVICE_CALLBACK}";
+
+
+
+:BACKLOADCRASH;
+_file_write "[%time%][Kernel][Error] Crash Screen Load";
+_file_write "[%time%][Kernel][Error] Crash Error : {NATVC_CRASH_CODE}";
+_file_write "[%time%][Kernel][Error] NUES Service Report Error :  {NATVC_CRASH_MESSAGE}";
+
+//Display Crash Screen
+_clear;
+_typefile "{NATVC_CRASH_TEXT}";
+
+_file_write "[%time%][Kernel][Error] Crash Report print Complete";
+_file_write "[%time%][Kernel][Notice] If you are unable to resolve this issue, please contact us";
+
+_pause;
+
+_file_write "[%time%][Kernel] System Closed(unexpected)";
+
+_return "{NATVC_CRASH_EXECUTE}";
+_exit;
+
+:FAILSYSMODE;
+_file_write "[%time%][Kernel][Error][Exception] CID : failsys (unexpected)";
+_var {NATVC_CRASH_CODE} = "CRITICAL_MODULE_DIED";
+_var {NATVC_CRASH_MESSAGE} = "A Critical Module unexpected died . Your device needs to be aware of this problem";
+_goto :BACKLOADCRASH;
+
+
+
+//Load Recovery
+:failbootRecovery;
+_file_write "[%time%][NATVC Boot Loader] Bootloader Report a problem :  last shutdown is unexpected";
+_clear;
+_typefile "{NATVC_DISK}/Natvc/res/natvc-fail-startup.txt";
+_prt "Type here. default 1 >";
+_var {boot_set} = _getline;
+_clear;
+_if( _cp ("{boot_set}" , "2") )| _goto :NBR_RS;
+_if( _cp ("{boot_set}" , "3") )| _return "$shutdown";
+_file_write "[%time%][Kernel] Startup Recovery :  Normal Boot";
+_goto :BackToNormalBoot;
+
+//Other
+:NBR_RS;
+_file_write "[%time%][Kernel] Startup Recovery :  Load Safemode (rootshell)";
+_var {boot_rsmode} = "true";
+_goto :BackToNormalBoot;
+
+//Set Shutdown Complete
+:SHUTDOWN_OK;
+_file_write "[%time%][Kernel] System Closed (Normal)";
+_sipcfg.open "{NATVC_CONFIG_SETUP}";
+_sipcfg shutdown = 0;
+_var {temp_record_time} = _getfulltime;
+_sipcfg last_shutdown = {temp_record_time};
+_file_write "@ [%time%][SYSTEM] System Closed on :   {temp_record_time}";
+_return "$shutdown";
+
+:RESTART_OK;
+_file_write "[%time%][Kernel] System Closed (Normal)";
+_sipcfg.open "{NATVC_CONFIG_SETUP}";
+_sipcfg shutdown = 0;
+_var {temp_record_time} = _getfulltime;
+_sipcfg last_shutdown = {temp_record_time};
+_file_write "@ [%time%][SYSTEM] System Closed on :   {temp_record_time}";
+_return "$reboot";
+
+Code------------------------------------- End
