@@ -1,2 +1,3 @@
 // Calcium Trusted Server List
 https://api-calcium.foxaxu.com
+http://githubimage.foxaxu.com/
