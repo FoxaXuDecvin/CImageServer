@@ -91,7 +91,7 @@ add _$lang.tbd.warning = "The evaluation period for this release has ended, and 
 
 //Shell Title 
 
-_shelltitle " Calcium {VersionID}  -> Shell Mode . FoxaXu 2024 > "
+_shelltitle " Calcium {VersionID}  -> Shell Mode . FoxaXu 2025 > "
 
 //Update 24-9-11
 
@@ -139,7 +139,7 @@ _$nolog;
 
 _var add = "_var";
 
-add _$lang.about="日本語 (Japan)";
+add _$lang.about="日本語 (Japan) \n If the language doesn't work properly, enable EnforceUTF-8";
 add _$lang.language= "言語";
 
 //公共Char
@@ -222,7 +222,7 @@ add _$lang.tbd.warning = "このリリースの評価期間は終了しており
 
 //Shell Title 
 
-_shelltitle " Calcium {VersionID}  -> Shell モード . FoxaXu 2024 > "
+_shelltitle " Calcium {VersionID}  -> Shell モード . FoxaXu 2025 > "
 
 //Update 24-9-11
 
@@ -241,7 +241,7 @@ _$nolog;
 
 _var add = "_var";
 
-add _$lang.about="简体中文 (中国)";
+add _$lang.about="简体中文 (中国) \n If the language doesn't work properly, enable EnforceUTF-8";
 add _$lang.language= "语言";
 
 //Public Char
@@ -324,7 +324,7 @@ add _$lang.tbd.warning = "此版本评估期限已经结束，请使用新的内
 
 //Shell Title 
 
-_shelltitle " Calcium {VersionID}  -> Shell 模式 . FoxaXu 2024 > "
+_shelltitle " Calcium {VersionID}  -> Shell 模式 . FoxaXu 2025 > "
 
 //Update 24-9-11
 
@@ -343,7 +343,7 @@ _$nolog;
 
 _var add = "_var";
 
-add _$lang.about="繁體中文 （中國）";
+add _$lang.about="繁體中文 （中國）\n If the language doesn't work properly, enable EnforceUTF-8";
 add _$lang.language= "語言";
 
 //Public Char
@@ -426,7 +426,7 @@ add _$lang.tbd.warning = "此版本評估期限已經結束，為防止此版本
 
 //Shell Title 
 
-_shelltitle " Calcium {VersionID}  -> Shell 模式 . FoxaXu 2024 > "
+_shelltitle " Calcium {VersionID}  -> Shell 模式 . FoxaXu 2025 > "
 
 //Update 24-9-11
 
