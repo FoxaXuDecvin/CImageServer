@@ -126,6 +126,7 @@ add _erc_35584 = "SYSTEM_KERNEL_CONFLICT";
 //Debugs
 add _erc_661 = "END_OF_EVALUATION_PERIOD";
 add _erc_25581 = "UNEXPECTED_HARDWARE_ERROR:DiskIO_FileLocation_Broke";
+add _erc_-1001 = "FAILED_START_PROCESS:Calcium_start_failed";
 
 
 //END OF LOAD
