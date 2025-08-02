@@ -1,6 +1,6 @@
-Calcium_Text_Pack_File  New Format
-//START EXTRACT
-$CSTP_FILE_RECORD_MARK_ID_START(/en-us);
+calcium_script_text_package
+//Text Package
+$sign_file_output(/en-us);
 _$directmode;
 _$nolog;
 //Language File
@@ -101,8 +101,8 @@ add _$lang.req.clfmv = "This procedure requires a CLFM version higher than ";
 _free add;
 _return "Ok";
 
-$CSTP_FILE_RECORD_MARK_ID_END(/en-us);
-$CSTP_FILE_RECORD_MARK_ID_START(/errcode_list.txt);
+$sign_file_close;
+$sign_file_output(/errcode_list.txt);
 _$directmode;
 _$nolog;
 //Error Code List
@@ -131,8 +131,8 @@ add _erc_661 = "END_OF_EVALUATION_PERIOD";
 //END OF LOAD
 _free add;
 _return "Ok";
-$CSTP_FILE_RECORD_MARK_ID_END(/errcode_list.txt);
-$CSTP_FILE_RECORD_MARK_ID_START(/ja);
+$sign_file_close;
+$sign_file_output(/ja);
 _$directmode;
 _$nolog;
 //言語ファイル
@@ -233,8 +233,8 @@ add _$lang.req.clfmv = "この手順では、CLFM バージョンが ";
 _free add;
 _return "Ok";
 
-$CSTP_FILE_RECORD_MARK_ID_END(/ja);
-$CSTP_FILE_RECORD_MARK_ID_START(/zh-cn);
+$sign_file_close;
+$sign_file_output(/zh-cn);
 _$directmode;
 _$nolog;
 //Language File
@@ -335,8 +335,8 @@ add _$lang.req.clfmv = "此程序要求 CLFM 版本高于  ";
 _free add;
 _return "Ok";
 
-$CSTP_FILE_RECORD_MARK_ID_END(/zh-cn);
-$CSTP_FILE_RECORD_MARK_ID_START(/zh-tw);
+$sign_file_close;
+$sign_file_output(/zh-tw);
 _$directmode;
 _$nolog;
 //Language File
@@ -437,4 +437,4 @@ add _$lang.req.clfmv = "此程式要求 CLFM 版本高於  ";
 _free add;
 _return "Ok";
 
-$CSTP_FILE_RECORD_MARK_ID_END(/zh-tw);
+$sign_file_close;
