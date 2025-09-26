@@ -235,6 +235,107 @@ _free add;
 _return "Ok";
 
 $sign_file_close;
+$sign_file_output(/ru);
+_$directmode;
+_$nolog;
+//Language File
+// Russian (Русский)
+
+_var add = "_var";
+
+add _$lang.about="Русский (Россия) [Use AI(DeepSeek) Translate] \n If the language doesn't work properly, enable EnforceUTF-8";
+add _$lang.language= "Язык";
+
+//Public Char
+add _$lang.presskey = "Нажмите Enter";
+
+//Crash Info
+
+add _$lang.crash.title = "   :(  Произошёл сбой ядра Calcium";
+add _$lang.crash.t1 = "Мы пока не можем определить причину этой проблемы";
+add _$lang.crash.t2 = "Если эта проблема мешает использованию";
+add _$lang.crash.t3 = "Пожалуйста, сообщите нам https://www.foxaxu.com/contact";
+add _$lang.crash.errcode = "Код ошибки :  ";
+add _$lang.crash.kcode = "Возвращаемое значение ядра";
+add _$lang.crash.report = "Пожалуйста, укажите в отчёте способ воспроизведения этой ошибки";
+
+//FoxaXu
+add _$lang.foxaxu.t1 = "Спасибо за вашу поддержку";
+
+//Kernel
+
+add _$lang.runfail = "Сбой выполнения Calcium Script";
+add _$lang.filenotfound = "Файл не найден";
+add _$lang.stoprun = "Выполнение ядра Calcium остановлено";
+
+add _$lang.sys.t1 = "Вызов системных команд программой запрещён";
+add _$lang.sys.t2 = "Ваш администратор не разрешает использовать эту команду";
+add _$lang.sys.t3 = "Пожалуйста, используйте команду";
+
+add _$lang.cfgedit.r = "Ваши настройки изменены, используйте _reload для перезагрузки всех конфигураций";
+add _$lang.reloading = "Пожалуйста, подождите...  Перезагружается Calcium";
+add _$lang.reload = "Конфигурация _Rcapi перезагружена";
+add _$lang.notNum = "Неверное число";
+
+add _$lang.if.err.t1 = "[Предупреждение] Ошибка команды _if";
+add _$lang.if.err.t2 = "[Предупреждение] Команда вернула значение, которое не может быть использовано для определения true или false";
+add _$lang.calc.zero = "[Calc] 0 не допускается";
+
+add _$lang.nullcmd = "  [Ошибка] Неизвестная команда или переменная, проверьте правильность ввода";
+
+add _$lang.logfail = "  [ПРЕДУПРЕЖДЕНИЕ] Не удалось создать файл журнала, это может повлиять на среду отладки, путь к файлу : ";
+
+add _$lang.pause = "Нажмите Enter для продолжения ";
+
+add _$lang.runargs = "Параметры запуска ";
+
+//Extend
+
+add _$lang.loadfail = "Не удалось загрузить файл";
+add _$lang.complete = "Завершено";
+add _$lang.fail = "Сбой";
+
+//Update 24-5-29
+
+add _$lang.act_fail = "Активация не удалась";
+add _$lang.act_succ_t1 = "Текущая версия успешно активирована,";
+add _$lang.act_succ.t2 = "перезапустите программу, чтобы разблокировать все функции";
+add _$lang.act_need = "Пожалуйста, выполните эту команду повторно после активации";
+add _$lang.act_info = "Активация Calcium";
+add _$lang.notactivate = "Эта версия ещё не активирована";
+add _$lang.activatehelp = "Используйте команду _$activate в режиме Shell для активации этой версии";
+add _$lang.Access_Denied = "Доступ запрещён";
+
+//Update 24-6-5
+
+add _$lang.untrusted.server = "Неизвестный сторонний сервер... Calcium использует API, которого нет в списке доверенных. Мы не можем подтвердить, кем создан этот сервер. Если вы доверяете этому серверу, можете проигнорировать это сообщение";
+
+//Update 24-6-6
+
+add _$lang.activateModified = "Вы используете копию Calcium";
+add _$lang.activateRe = "Для продолжения использования необходимо повторно активировать Calcium";
+
+//Update 24-6-12
+
+add _$lang.cfgver = "Конфиденциальная версия FoxaXu";
+add _$lang.timebomb = "Оценочный срок для этой версии истекает ";
+add _$lang.false.violation = "Мы отозвали вашу лицензию на активацию за нарушение соглашения о конфиденциальности. Если у вас есть вопросы, свяжитесь с нами. ";
+
+//Update 24-6-20
+add _$lang.tbd.warning = "Оценочный срок для этой версии истёк. Пожалуйста, используйте новую внутреннюю версию. По истечении срока оценки эта версия будет автоматически заблокирована";
+
+//Shell Title
+
+_shelltitle " Calcium {VersionID}  -> Режим Shell . FoxaXu 2025 > "
+
+//Update 24-9-11
+
+add _$lang.req.clfmv = "Эта программа требует версию CLFM выше ";
+
+//Exit
+_free add;
+_return "Ok";
+$sign_file_close;
 $sign_file_output(/zh-cn);
 _$directmode;
 _$nolog;
