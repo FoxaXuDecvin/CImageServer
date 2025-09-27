@@ -1,0 +1,10 @@
+//Calcium Deployment Application
+//Version API
+$latest=117.5.6.6;
+
+
+//Download URL
+$117.5.6.6=https://github.com/FoxaXuDecvin/Calcium_Project_Code/releases/download/117.5.6.6_RELEASE/Calcium.exe;
+$117.5.4.6=https://github.com/FoxaXuDecvin/Calcium_Project_Code/releases/download/117.5.4.6_STABLE_RELEASE/Calcium.exe;
+$117.5.3.6=https://github.com/FoxaXuDecvin/Calcium_Project_Code/releases/download/117.5.3.6_STABLE_THREAD-UPDATE/Calcium.exe;
+$117.4.6.5=https://github.com/FoxaXuDecvin/Calcium_Project_Code/releases/download/117.4.6.5_RELEASE_Windows-x64/Calcium.exe;
