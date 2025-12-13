@@ -1,12 +1,12 @@
 //NATVC ACTIVATED LICENSE
 $KEY=25PSL-00100-10DET;
 $LICENSE_ID=20251213_ACCEPTBY_FOXAXU_T11:57_W:DEVPC;
-$ProductID=PSL-E;
+$ProductID=PSL_E;
 $ProductActivate=Natvc_16_ORG,Coral_1_OCE;
 $ProductLicenseArea=Developer Test;
 
 $Channel=VOL_LICENSE;
-$VaildTime=20251215;
+$VaildTime=20261231;
 
 $User=Lau_FoxaXu;
 $UserType=Staff_Debug_Channel;
