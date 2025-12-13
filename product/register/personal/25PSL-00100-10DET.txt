@@ -6,7 +6,7 @@ $ProductActivate=Natvc_16_ORG,Coral_1_OCE;
 $ProductLicenseArea=Developer Test;
 
 $Channel=VOL_LICENSE;
-$VaildTime=inf;
+$VaildTime=20251215;
 
 $User=Lau_FoxaXu;
 $UserType=Staff_Debug_Channel;
