@@ -8,10 +8,10 @@ $ProductLicenseArea=Developer Test;
 $Channel=VOL_LICENSE;
 $VaildTime=20261231;
 
-$User=Lau_FoxaXu;
-$UserType=Staff_Debug_Channel;
+$User=Anonymous;
+$UserType=PublicTest;
 
-$LicenseHost=FDL_BASE_LICENSE_CENTER(Tester);
+$LicenseHost=FDL.NT_LAB;
 
 //FoxaXu Dev Lab 2025
 //Natvc License
