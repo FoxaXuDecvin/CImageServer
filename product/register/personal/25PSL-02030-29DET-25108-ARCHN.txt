@@ -1,0 +1,18 @@
+//NATVC ACTIVATED LICENSE
+$KEY=25PSL-02030-29DET-25108-ARCHN;
+$LICENSE_ID=20251214_FOR_OPENINGTEST_FDL_T11:09_W:NT_LAB;
+$ProductID=PSL_E;
+$ProductActivate=Natvc_16_ORG,Coral_1_OCE;
+$ProductLicenseArea=Developer Test;
+
+$Channel=VOL_LICENSE;
+$VaildTime=20261231;
+
+$User=Lau_FoxaXu;
+$UserType=Staff_Debug_Channel;
+
+$LicenseHost=FDL_BASE_LICENSE_CENTER(Tester);
+
+//FoxaXu Dev Lab 2025
+//Natvc License
+//For Persional License
