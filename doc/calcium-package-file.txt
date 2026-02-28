@@ -1,0 +1,40 @@
+中文版本.
+此文档用于解释CSTP包装的文件头与定义
+CSTP有两个版本，此为新版本的解释
+
+文件开头 
+//Calcium_Text_Pack_File  New Format
+New Format为新版格式
+
+以下为各个文件的头与尾
+头结构
+$CSTP_FILE_RECORD_MARK_ID_START(路径+文件名称);
+此头表示文件开始，以下所有的数据将会被输入到对应的文件内
+
+文件尾
+$CSTP_FILE_RECORD_MARK_ID_END(路径+文件名称);
+此头表示文件结束，如果有下一个文件则回到头结构
+注意，此尾部的文件名称和路径必须与头结构一样，否则Calcium会忽略掉这个尾标记，然后把这段当作正常的数据流进行输出
+
+一般来说calcium会在读取报回overline的时候自动视为文件解压完成
+
+  
+ENGLISH VERSION.
+  This document is used to explain the file headers and definitions of CSTP packaging. 
+CSTP has two versions; this is an explanation of the new version.
+
+File Header
+//Calcium_Text_Pack_File New Format
+"New Format" refers to the new version format.
+
+The following are the headers and footers of each file:
+Header Structure
+$CSTP_FILE_RECORD_MARK_ID_START(path file_name);
+This header indicates the start of the file. All the following data will be input into the corresponding file.
+
+File Footer
+$CSTP_FILE_RECORD_MARK_ID_END(path file_name);
+This footer indicates the end of the file. If there is a next file, it will return to the header structure.
+Note: The file name and path in this footer must be the same as those in the header structure; otherwise, Calcium will ignore this footer marker and treat this segment as a normal data stream for output.
+
+Generally, Calcium will automatically consider the file decompression complete when reading returns 'overline.'
