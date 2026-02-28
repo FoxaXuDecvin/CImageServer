@@ -1,0 +1,8 @@
+This document is natvc/coral update log.
+Include new Function and bug fix
+
+Insider Version 10063
+  1. Repair sppsvc :  when product not require internet verify. The SETUP config will not set IsSystemActivated value to TRUE
+  2. Sysfix is disabled(default) :  Recovery Enviroment Init now by natvc deploy .ca
+  3. RE.NBF :  Now loading files will not type any info
+RELEASE ON 2026.02.28
