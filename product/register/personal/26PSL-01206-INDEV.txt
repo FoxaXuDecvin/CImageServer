@@ -1,0 +1,18 @@
+//NATVC ACTIVATED LICENSE
+$KEY=26PSL-01206-INDEV;
+$LICENSE_ID=20260228_ACCEPTBY_INSIDERLAB_T12:07_W:ALLDEVICE;
+$ProductID=PSL_E;
+$ProductActivate=Coral_1_OCE;
+$ProductLicenseArea=Insider Lab/ Test Device;
+
+$Channel=VOL_LICENSE;
+$VaildTime=20991231;
+
+$User=0;
+$UserType=0;
+
+$LicenseHost=Insider Lab RELEASE;
+
+//FoxaXu Dev Lab 2025
+//Natvc License
+//For Persional License
