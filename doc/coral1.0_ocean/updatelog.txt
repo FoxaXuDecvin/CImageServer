@@ -12,3 +12,9 @@ Insider Version 10069
   2. New Command :  kerneldump
   3. Fix Bug user Explorer : Cannot open any software on safemode
   4. (Not Fix. Marked) System repair : Repair is broken in recent version
+
+Insider Version 10102
+  1. Kernel Update :  Remove Security User "Local_Low"
+  2. Add New Folder {SYS_NROOT}/CoralSxS
+  3. System Folder Renamed to "Coral" and NatvcApps -> CoralApps
+  4. Firmware Activate is supported :  on bvm/oem/systemlicense.txt
