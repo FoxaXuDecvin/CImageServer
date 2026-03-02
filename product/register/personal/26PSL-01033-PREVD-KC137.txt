@@ -1,0 +1,18 @@
+//NATVC ACTIVATED LICENSE
+$KEY=26PSL-01033-PREVD-KC137;
+$LICENSE_ID=20260302_ACCEPTBY_INSIDERLAB_T10:33_W:PREVIEWDEVICE;
+$ProductID=PSL_E;
+$ProductActivate=Coral_1_OCE;
+$ProductLicenseArea=Preview Device;
+
+$Channel=VOL_LICENSE;
+$VaildTime=20260331;
+
+$User=0;
+$UserType=0;
+
+$LicenseHost=Insider Lab RELEASE;
+
+//FoxaXu Dev Lab 2025
+//Natvc License
+//For Persional License
