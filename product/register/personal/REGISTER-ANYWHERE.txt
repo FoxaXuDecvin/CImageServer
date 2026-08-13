@@ -1,0 +1,18 @@
+//CORAL
+$KEY=REGISTER-ANYWHERE;
+$LICENSE_ID=REGISTER-ANYWHERE;
+$ProductID=ITP;
+$ProductActivate=ITE-Allowed;
+$ProductLicenseArea=Developer Test;
+
+$Channel=VOL_LICENSE;
+$VaildTime=20261231;
+
+$User=Lau_FoxaXu;
+$UserType=Staff_Debug_Channel;
+
+$LicenseHost=FDL_BASE_LICENSE_CENTER(Tester);
+
+//FoxaXu Dev Lab 2025
+//Natvc License
+//For Persional License
