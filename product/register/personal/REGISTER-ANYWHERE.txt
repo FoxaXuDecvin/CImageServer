@@ -16,3 +16,5 @@ $LicenseHost=FDL_BASE_LICENSE_CENTER(Tester);
 //FoxaXu Dev Lab 2025
 //Natvc License
 //For Persional License
+
+$FILECHECK=true;
