@@ -1,0 +1,20 @@
+//CORAL
+$KEY=26H2_QS_IQWNA;
+$LICENSE_ID=Coral Activate License for Advanced Users;
+$ProductID=SE,PRO;
+$ProductActivate=SE_LC,PRO_LC;
+$ProductLicenseArea=Coral 1.0 Standard(Professional) Edition;
+
+$Channel=VOL_LICENSE;
+$VaildTime=20991231;
+
+$User=CALAU;
+$UserType=INSIDER_USE;
+
+$LicenseHost=FDL_SOFTWARE_LAB(for advanced users);
+
+//FoxaXu Dev Lab 2025
+//Natvc License
+//For Persional License
+
+$FILECHECK=true;
