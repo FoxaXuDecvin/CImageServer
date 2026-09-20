@@ -1,7 +1,7 @@
 //CORAL
 $KEY=26H2_QS_IQWNA;
 $LICENSE_ID=Coral Activate License for Advanced Users;
-$ProductID=SE,PRO;
+$ProductID=ALL_VERSION;
 $ProductActivate=SE_LC,PRO_LC;
 $ProductLicenseArea=Coral 1.0 Standard(Professional) Edition;
 
