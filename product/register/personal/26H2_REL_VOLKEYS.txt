@@ -1,0 +1,20 @@
+//CORAL
+$KEY=26H2_REL_VOLKEYS;
+$LICENSE_ID=Coral License for VOL Users;
+$ProductID=ALL_VERSION;
+$ProductActivate=SE_LC,PRO_LC;
+$ProductLicenseArea=Coral 1.0 Standard(Professional) Edition;
+
+$Channel=VOL_LICENSE;
+$VaildTime=20991231;
+
+$User=CALAU;
+$UserType=INSIDER_USE;
+
+$LicenseHost=Software Release;
+
+//FoxaXu Dev Lab 2025
+//Natvc License
+//For Persional License
+
+$FILECHECK=true;
