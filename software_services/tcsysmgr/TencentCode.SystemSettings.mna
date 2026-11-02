@@ -1,0 +1,1165 @@
+Calcium_Text_Pack_File  New Format
+//START EXTRACT
+$CSTP_FILE_RECORD_MARK_ID_START(/apploader.ca);
+_$directmode;
+_$nolog;
+
+// ============================================================
+//  TencentCode System Settings
+//  Coral System Management Panel (MNA System Application)
+//
+//  Copyright TencentCode. All rights reserved.
+//  TencentCode provides SystemSettings to FDL.
+//
+//  Package : TencentCode.SystemSettings.mna
+//  Type    : systemapps
+// ============================================================
+
+//Resolve the application directory.
+//When launched by the MNA service, {AppDir} is already set.
+_if(_cp("{AppDir}",'{varspace.null}'))|_var {AppDir} = "{SYS_NROOT}/CoralApps/TencentCode.SystemSettings.mna";
+
+//Fallback for user display variables (avoid raw null markers)
+_if(_cp("{NATVC_USERNAME}",'{varspace.null}'))|_var {NATVC_USERNAME} = "Unknown";
+_if(_cp("{NATVC_WHOIS}",'{varspace.null}'))|_var {NATVC_WHOIS} = "Unknown";
+
+:TCSS_MAINMENU;
+_clear;
+_cout "==================================================";
+_cout "        System Settings";
+_cout "   Coral System Management Panel";
+_cout "==================================================";
+_cout " ";
+_cout "   [1] System       - View system information";
+_cout "   [2] Version      - OS version and build details";
+_cout "   [3] Apps         - Manage installed applications";
+_cout "   [4] Accounts     - User account settings";
+_cout "   [5] Security     - Security and protection";
+_cout "   [6] Update       - System update";
+_cout "   [7] More         - Copyright and app information";
+_cout " ";
+_cout "   [0] Exit";
+_cout " ";
+_cout "   Signed in as :  {NATVC_USERNAME} ({NATVC_WHOIS})";
+_cout "==================================================";
+_prt " Select a section >";
+_var {tcss_in} = _getline;
+_if(_cp("{tcss_in}","1"))|_script <"{AppDir}/pages/systeminfo.ca">;
+_if(_cp("{tcss_in}","2"))|_script <"{AppDir}/pages/about.ca">;
+_if(_cp("{tcss_in}","3"))|_script <"{AppDir}/pages/apps.ca">;
+_if(_cp("{tcss_in}","4"))|_script <"{AppDir}/pages/accounts.ca">;
+_if(_cp("{tcss_in}","5"))|_script <"{AppDir}/pages/security.ca">;
+_if(_cp("{tcss_in}","6"))|_script <"{AppDir}/pages/updates.ca">;
+_if(_cp("{tcss_in}","7"))|_script <"{AppDir}/pages/more.ca">;
+_if(_cp("{tcss_in}","0"))|_goto :TCSS_EXIT;
+_goto :TCSS_MAINMENU;
+
+:TCSS_EXIT;
+_free {tcss_in};
+_clear;
+_return "ok";
+$CSTP_FILE_RECORD_MARK_ID_END(/apploader.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/about.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : Version (About)
+//  Copyright TencentCode. TencentCode provides SystemSettings
+//  to FDL. All rights reserved.
+// ============================================================
+
+//Guard display variables
+_if(_cp("{SYS_REG_NAME}",'{varspace.null}'))|_var {SYS_REG_NAME} = "Unknown";
+_if(_cp("{NATVC_EDITION}",'{varspace.null}'))|_var {NATVC_EDITION} = "Unknown Edition";
+_if(_cp("{SYS_KERNEL_VID}",'{varspace.null}'))|_var {SYS_KERNEL_VID} = "Unknown";
+_if(_cp("{SYS_KERNEL_CODENAME}",'{varspace.null}'))|_var {SYS_KERNEL_CODENAME} = "Unknown";
+_if(_cp("{SYS_RELEASE_Channel}",'{varspace.null}'))|_var {SYS_RELEASE_Channel} = "Unknown";
+_if(_cp("{SYS_BASE_VID}",'{varspace.null}'))|_var {SYS_BASE_VID} = "Unknown";
+_if(_cp("{VersionID}",'{varspace.null}'))|_var {VersionID} = "Unknown";
+_if(_cp("{CalciumL_FMV}",'{varspace.null}'))|_var {CalciumL_FMV} = "Unknown";
+_if(_cp("{BiatoVersion}",'{varspace.null}'))|_var {BiatoVersion} = "Unknown";
+
+_var {tcss_appver} = "1000";
+
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Version";
+_cout "==================================================";
+_cout " ";
+_cout "  -----------------   OS build  ---------------------------";
+_cout "  OS name            :  {SYS_NAME}";
+_cout "  Edition            :  {NATVC_EDITION}";
+_cout "  OS build           :  {SYS_KERNEL_VID}.{tcss_appver}";
+_cout "  Kernel codename    :  {SYS_KERNEL_CODENAME}";
+_cout "  Release channel    :  {SYS_RELEASE_Channel}";
+_cout "  Base identifier    :  {SYS_BASE_VID}";
+_cout " ";
+_cout "  ----------------------- Runtime -------------------------";
+_cout "  Calcium version    :  {VersionID}  (FMV : {CalciumL_FMV})";
+_cout "  Core platform      :  BiatoCore {BiatoVersion}";
+_cout " ";
+_cout "  Application and copyright information is available";
+_cout "  under :  More > Copyright information";
+_cout "==================================================";
+_cout "  Press Enter to go back";
+_pause;
+_return "ok";
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/about.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/accounts.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : Accounts
+//  Copyright TencentCode. TencentCode provides SystemSettings
+//  to FDL. All rights reserved.
+// ============================================================
+
+_if(_cp("{AppData}",'{varspace.null}'))|_var {AppData} = "{temp}";
+_if(_cp("{NATVC_isAdmin}",'{varspace.null}'))|_var {NATVC_isAdmin} = "0";
+_if(_cp("{NATVC_WHOIS}",'{varspace.null}'))|_var {NATVC_WHOIS} = "";
+
+:AC_MENU;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Accounts";
+_cout "==================================================";
+_cout " ";
+_cout "   [1] View user accounts";
+_cout "   [2] Add a new user                    (Administrator)";
+_cout "   [3] Remove a user                     (Administrator)";
+_cout "   [4] Enable or disable a user          (Administrator)";
+_cout "   [5] Grant or revoke administrator     (Administrator)";
+_cout "   [6] Reset a user password             (Administrator)";
+_cout " ";
+_cout "   [0] Back";
+_cout "==================================================";
+_prt " Select an option >";
+_var {tcss_in} = _getline;
+_if(_cp("{tcss_in}","1"))|_script <"{AppDir}/pages/accounts_list.ca">;
+_if(_cp("{tcss_in}","2"))|_goto :AC_ADDUSER;
+_if(_cp("{tcss_in}","3"))|_goto :AC_DELUSER;
+_if(_cp("{tcss_in}","4"))|_goto :AC_BANUSER;
+_if(_cp("{tcss_in}","5"))|_goto :AC_SETADMIN;
+_if(_cp("{tcss_in}","6"))|_goto :AC_RESETPWD;
+_if(_cp("{tcss_in}","0"))|_return "ok";
+_goto :AC_MENU;
+
+// ------------------------------------------------------------
+// [2] Add a new user
+// ------------------------------------------------------------
+:AC_ADDUSER;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :AC_NOAUTH;
+
+_clear;
+_cout "   System Settings > Accounts > Add a new user";
+_cout " ";
+_cout "  Step 1/4 : Type the user id used to sign in.";
+_cout "  The id cannot contain spaces or the % character.";
+_prt " User id >";
+_var {tcss_tid} = _getline;
+_if(_cp("{tcss_tid}",'{varspace.null}'))|_goto :AC_ADDUSER_CANCEL;
+_if(_found("{tcss_tid}","%"))|_goto :AC_BADCHAR;
+_if(_found("{tcss_tid}"," "))|_goto :AC_BADCHAR;
+_var {tcss_fb} = "0";
+_if(_cp("{tcss_tid}","SYSTEM"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","default"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","admin"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","public"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Driver_Security_User"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Low"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","TrustedServices"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_fb}","1"))|_goto :AC_FORBIDDEN;
+_if(_dir_exist "{SYS_USERPATH}/{tcss_tid}")|_goto :AC_USER_EXIST;
+
+_cout " ";
+_cout "  Step 2/4 : Type the display name of this user.";
+_prt " Full name >";
+_var {tcss_full} = _getline;
+_if(_cp("{tcss_full}",'{varspace.null}'))|_var {tcss_full} = "{tcss_tid}";
+_if(_found("{tcss_full}","%"))|_goto :AC_BADCHAR;
+
+_cout " ";
+_cout "  Step 3/4 : Type the sign-in password.";
+_cout "  Leave empty for no password. % is not allowed.";
+_prt " Password >";
+_var {tcss_pswd} = _getline;
+_if(_cp("{tcss_pswd}",'{varspace.null}'))|_var {tcss_pswd} = "@nopswd";
+_if(_found("{tcss_pswd}","%"))|_goto :AC_BADCHAR;
+_if(_found("{tcss_pswd}",";"))|_goto :AC_BADCHAR;
+
+_cout " ";
+_cout "  Step 4/4 : Is this user an administrator ?";
+_cout "  Type 1 for yes, 0 for no.";
+_prt " Level >";
+_var {tcss_uadmin} = _getline;
+_if(_cp("{tcss_uadmin}","1"))|_goto :AC_ADDUSER_GO;
+_if(_cp("{tcss_uadmin}","0"))|_goto :AC_ADDUSER_GO;
+_goto :AC_BADLEVEL;
+
+:AC_ADDUSER_GO;
+_cout " ";
+_cout "  Creating the user profile ...";
+_var _ARGS_NU_ID = "{tcss_tid}";
+_var _ARGS_NU_FULLNAME = "{tcss_full}";
+_var _ARGS_NU_PSWD = "{tcss_pswd}";
+_var _ARGS_NU_ADMIN = "{tcss_uadmin}";
+_var {tcss_back} = _script <"{SYS_ROOT}/usermgr.ca"> "newuser";
+_cout "  Result : {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_ADDUSER_CANCEL;
+_goto :AC_MENU;
+
+// ------------------------------------------------------------
+// [3] Remove a user
+// ------------------------------------------------------------
+:AC_DELUSER;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :AC_NOAUTH;
+
+_clear;
+_cout "   System Settings > Accounts > Remove a user";
+_cout " ";
+_cout "  Type the user id to remove from this device.";
+_cout "  Built-in system accounts are protected.";
+_prt " User id >";
+_var {tcss_tid} = _getline;
+_if(_cp("{tcss_tid}",'{varspace.null}'))|_goto :AC_MENU;
+_if(_cp("{tcss_tid}","{NATVC_WHOIS}"))|_goto :AC_SELF_BLOCK;
+_var {tcss_fb} = "0";
+_if(_cp("{tcss_tid}","SYSTEM"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","default"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","admin"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","public"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Driver_Security_User"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Low"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","TrustedServices"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_fb}","1"))|_goto :AC_FORBIDDEN;
+_if(!_dir_exist "{SYS_USERPATH}/{tcss_tid}")|_goto :AC_NOUSER;
+
+_cout " ";
+_prt "  Type CONFIRM to remove this user >";
+_var {tcss_ok} = _getline;
+_if(!_cp("{tcss_ok}","CONFIRM"))|_goto :AC_OP_CANCEL;
+
+_var _ARGS_NU_ID = "{tcss_tid}";
+_var {tcss_back} = _script <"{SYS_ROOT}/usermgr.ca"> "deluser";
+_cout "  Result : {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+// ------------------------------------------------------------
+// [4] Enable or disable a user
+// ------------------------------------------------------------
+:AC_BANUSER;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :AC_NOAUTH;
+
+_clear;
+_cout "   System Settings > Accounts > Enable or disable a user";
+_cout " ";
+_cout "  This toggles the account state. A disabled user";
+_cout "  cannot sign in until it is enabled again.";
+_prt " User id >";
+_var {tcss_tid} = _getline;
+_if(_cp("{tcss_tid}",'{varspace.null}'))|_goto :AC_MENU;
+_if(_cp("{tcss_tid}","{NATVC_WHOIS}"))|_goto :AC_SELF_BLOCK;
+_var {tcss_fb} = "0";
+_if(_cp("{tcss_tid}","SYSTEM"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","default"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","public"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_fb}","1"))|_goto :AC_FORBIDDEN;
+_if(!_dir_exist "{SYS_USERPATH}/{tcss_tid}")|_goto :AC_NOUSER;
+
+_var _ARGS_NU_ID = "{tcss_tid}";
+_var {tcss_back} = _script <"{SYS_ROOT}/usermgr.ca"> "banuser";
+_cout "  Result : {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+// ------------------------------------------------------------
+// [5] Grant or revoke administrator rights
+// ------------------------------------------------------------
+:AC_SETADMIN;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :AC_NOAUTH;
+
+_clear;
+_cout "   System Settings > Accounts > Administrator rights";
+_cout " ";
+_cout "  This toggles the administrator level of a user.";
+_cout "  Built-in system accounts are protected.";
+_prt " User id >";
+_var {tcss_tid} = _getline;
+_if(_cp("{tcss_tid}",'{varspace.null}'))|_goto :AC_MENU;
+_var {tcss_fb} = "0";
+_if(_cp("{tcss_tid}","SYSTEM"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","default"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","admin"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","public"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Driver_Security_User"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Low"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","TrustedServices"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_fb}","1"))|_goto :AC_FORBIDDEN;
+_if(!_dir_exist "{SYS_USERPATH}/{tcss_tid}")|_goto :AC_NOUSER;
+
+_var _ARGS_NU_ID = "{tcss_tid}";
+_var {tcss_back} = _script <"{SYS_ROOT}/usermgr.ca"> "setadmin";
+_cout "  Result : {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+// ------------------------------------------------------------
+// [6] Reset a user password
+// ------------------------------------------------------------
+:AC_RESETPWD;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :AC_NOAUTH;
+
+_clear;
+_cout "   System Settings > Accounts > Reset a user password";
+_cout " ";
+_prt "  Type the user id >";
+_var {tcss_tid} = _getline;
+_if(_cp("{tcss_tid}",'{varspace.null}'))|_goto :AC_MENU;
+_var {tcss_fb} = "0";
+_if(_cp("{tcss_tid}","SYSTEM"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","default"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","public"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Driver_Security_User"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","Local_Low"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_tid}","TrustedServices"))|_var {tcss_fb} = "1";
+_if(_cp("{tcss_fb}","1"))|_goto :AC_FORBIDDEN;
+_if(!_dir_exist "{SYS_USERPATH}/{tcss_tid}")|_goto :AC_NOUSER;
+_if(!_file_exist "{SYS_USERPATH}/{tcss_tid}/userconfig")|_goto :AC_NOUSER;
+
+_cout " ";
+_cout "  Type the new password.";
+_cout "  Leave empty for no password. % and ; are not allowed.";
+_prt " New password >";
+_var {tcss_pswd} = _getline;
+_if(_cp("{tcss_pswd}",'{varspace.null}'))|_var {tcss_pswd} = "@nopswd";
+_if(_found("{tcss_pswd}","%"))|_goto :AC_BADCHAR;
+_if(_found("{tcss_pswd}",";"))|_goto :AC_BADCHAR;
+
+_cout " ";
+_prt "  Type CONFIRM to apply the new password >";
+_var {tcss_ok} = _getline;
+_if(!_cp("{tcss_ok}","CONFIRM"))|_goto :AC_OP_CANCEL;
+
+_sipcfg.open "{SYS_USERPATH}/{tcss_tid}/userconfig";
+_sipcfg UserPassword = "{tcss_pswd}";
+_cout "  The password of user {tcss_tid} has been reset.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+// ------------------------------------------------------------
+// Common result pages
+// ------------------------------------------------------------
+:AC_OP_CANCEL;
+_cout " ";
+_cout "  Cancelled. Nothing was changed.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_FORBIDDEN;
+_cout " ";
+_cout "  This account is protected by system security and";
+_cout "  cannot be modified from this panel.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_NOUSER;
+_cout " ";
+_cout "  User not found :  {tcss_tid}";
+_cout "  Check the user id and try again.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_USER_EXIST;
+_cout " ";
+_cout "  This user already exists. Cannot create it again.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_BADCHAR;
+_cout " ";
+_cout "  The typed value contains characters that are not";
+_cout "  allowed. Remove % and ; characters and try again.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_BADLEVEL;
+_cout " ";
+_cout "  Invalid level. Type 1 for administrator or 0 for";
+_cout "  a standard user.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_SELF_BLOCK;
+_cout " ";
+_cout "  You cannot modify the account you are signed in";
+_cout "  with. Use another administrator account.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+
+:AC_NOAUTH;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Accounts";
+_cout "==================================================";
+_cout " ";
+_cout "  This action requires an administrator account.";
+_cout "  Sign in with an administrator and try again.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :AC_MENU;
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/accounts.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/accounts_list.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : Accounts > User list
+//  Copyright TencentCode. TencentCode provides SystemSettings
+//  to FDL. All rights reserved.
+// ============================================================
+
+_if(_cp("{AppData}",'{varspace.null}'))|_var {AppData} = "{temp}";
+_if(_cp("{NATVC_WHOIS}",'{varspace.null}'))|_var {NATVC_WHOIS} = "";
+
+_var {tcss_listfile} = "{AppData}/tcss_userlist.tmp";
+_file_del "{tcss_listfile}";
+_dir_list ("{tcss_listfile}","{SYS_USERPATH}");
+
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Accounts > User list";
+_cout "==================================================";
+_cout " ";
+_cout "  ID              Display name      Level            State";
+_cout "  ---------------------------------------------------------";
+
+_var {tcss_i} = "1";
+_var {tcss_count} = "0";
+
+:ACL_LOOP;
+_var {tcss_line} = _file_read ("{tcss_listfile}","{tcss_i}");
+_if(_cp("{tcss_line}","overline"))|_goto :ACL_DONE;
+
+//Normalize the listed path, then keep profile entries only
+_var {tcss_rel} = _str_replace "{tcss_line}" ("{SYS_USERPATH}/","");
+_if(!_found("{tcss_rel}","/userconfig"))|_goto :ACL_NEXT;
+
+//Extract the user id from the listed profile path
+_var {tcss_tid} = _str_replace "{tcss_rel}" ("/userconfig","");
+_var {tcss_udir} = "{SYS_USERPATH}/{tcss_tid}";
+
+_sipcfg.open "{tcss_udir}/userconfig";
+_var {tcss_uname} = _sipcfg UserName;
+_if(_cp("{tcss_uname}",'{varspace.null}'))|_var {tcss_uname} = "{tcss_tid}";
+_var {tcss_uadmin} = _sipcfg isAdmin;
+_var {tcss_udis} = _sipcfg DisableUser;
+
+_var {tcss_urole} = "Standard user";
+_if(_cp("{tcss_uadmin}","1"))|_var {tcss_urole} = "Administrator";
+_if(_cp("{tcss_uadmin}","2"))|_var {tcss_urole} = "System admin";
+
+_var {tcss_ustate} = "Active";
+_if(_cp("{tcss_udis}","1"))|_var {tcss_ustate} = "Disabled";
+
+_var {tcss_mark} = " ";
+_if(_cp("{tcss_tid}","{NATVC_WHOIS}"))|_var {tcss_mark} = "*";
+
+_cout "  {tcss_mark} {tcss_tid}   {tcss_uname}    {tcss_urole}   {tcss_ustate}";
+_var {tcss_count} = _+("{tcss_count}","1");
+_goto :ACL_NEXT;
+
+:ACL_BROKEN;
+_cout "  {tcss_tid}   (broken profile : userconfig is missing)";
+
+:ACL_NEXT;
+_var {tcss_i} = _+("{tcss_i}","1");
+_goto :ACL_LOOP;
+
+:ACL_DONE;
+_cout " ";
+_cout "  Total : {tcss_count} account(s).   (* = current session)";
+_cout "==================================================";
+_cout "  Press Enter to go back";
+_pause;
+_file_del "{tcss_listfile}";
+_return "ok";
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/accounts_list.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/apps.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : Apps
+//  Copyright TencentCode. TencentCode provides SystemSettings
+//  to FDL. All rights reserved.
+// ============================================================
+
+_if(_cp("{AppData}",'{varspace.null}'))|_var {AppData} = "{temp}";
+
+:APPS_MENU;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Apps";
+_cout "==================================================";
+_cout " ";
+_cout "   [1] View installed system apps";
+_cout "   [2] View installed user apps";
+_cout "   [3] Package details";
+_cout "   [4] Install a package        (Administrator)";
+_cout "   [5] Uninstall a package      (Administrator)";
+_cout " ";
+_cout "   [0] Back";
+_cout "==================================================";
+_prt " Select an option >";
+_var {tcss_in} = _getline;
+_if(_cp("{tcss_in}","1"))|_script <"{AppDir}/pages/apps_list.ca"> "system";
+_if(_cp("{tcss_in}","2"))|_script <"{AppDir}/pages/apps_list.ca"> "user";
+_if(_cp("{tcss_in}","3"))|_goto :APPS_INFO;
+_if(_cp("{tcss_in}","4"))|_goto :APPS_INSTALL;
+_if(_cp("{tcss_in}","5"))|_goto :APPS_UNINSTALL;
+_if(_cp("{tcss_in}","0"))|_return "ok";
+_goto :APPS_MENU;
+
+// ------------------------------------------------------------
+// Package details
+// ------------------------------------------------------------
+:APPS_INFO;
+_clear;
+_cout "   System Settings > Apps > Package details";
+_cout " ";
+_cout "  Type the package name (folder name, for example :";
+_cout "  TencentCode.SystemSettings.mna)";
+_prt " Package >";
+_var {tcss_pname} = _getline;
+_if(_cp("{tcss_pname}",'{varspace.null}'))|_goto :APPS_MENU;
+
+_var {tcss_pkgpath} = "{SYS_NROOT}/CoralApps/{tcss_pname}";
+_if(!_file_exist "{tcss_pkgpath}/pkgdata.mna")|_var {tcss_pkgpath} = "{PROG_PATH}/{tcss_pname}";
+_if(!_file_exist "{tcss_pkgpath}/pkgdata.mna")|_goto :APPS_INFO_NOTFOUND;
+
+_sipcfg.open "{tcss_pkgpath}/pkgdata.mna";
+_var {tcss_aname} = _sipcfg AppName;
+_var {tcss_aver} = _sipcfg AppVersion;
+_var {tcss_aprop} = _sipcfg AppProperties;
+
+_cout " ";
+_cout "  App name      :  {tcss_aname}";
+_cout "  Setup name    :  {tcss_pname}";
+_cout "  App type      :  {tcss_aprop}";
+_cout "  App version   :  {tcss_aver}";
+_cout "  Install path  :  {tcss_pkgpath}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :APPS_MENU;
+
+:APPS_INFO_NOTFOUND;
+_cout " ";
+_cout "  Package not found :  {tcss_pname}";
+_cout "  Check the package name and try again.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :APPS_MENU;
+
+// ------------------------------------------------------------
+// Install a package (Administrator only)
+// ------------------------------------------------------------
+:APPS_INSTALL;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :APPS_NOAUTH;
+
+_clear;
+_cout "   System Settings > Apps > Install a package";
+_cout " ";
+_cout "  Type the full path of the .mna package file,";
+_cout "  or type a package name stored in the app store.";
+_prt " Package >";
+_var {tcss_pname} = _getline;
+_if(_cp("{tcss_pname}",'{varspace.null}'))|_goto :APPS_MENU;
+
+_cout " ";
+_cout "  Contacting the MNA install service ...";
+_var {tcss_back} = _script <"{SYS_NROOT}/mnacore/install.ca"> "{tcss_pname}";
+_cout " ";
+_cout "  Install service result :  {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :APPS_MENU;
+
+// ------------------------------------------------------------
+// Uninstall a package (Administrator only)
+// ------------------------------------------------------------
+:APPS_UNINSTALL;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :APPS_NOAUTH;
+
+_clear;
+_cout "   System Settings > Apps > Uninstall a package";
+_cout " ";
+_cout "  Type the package name to remove from this device.";
+_cout "  System core packages may stop the system from";
+_cout "  working properly after removal.";
+_prt " Package >";
+_var {tcss_pname} = _getline;
+_if(_cp("{tcss_pname}",'{varspace.null}'))|_goto :APPS_MENU;
+
+_cout " ";
+_prt "  Type CONFIRM to remove this package >";
+_var {tcss_ok} = _getline;
+_if(!_cp("{tcss_ok}","CONFIRM"))|_goto :APPS_UNINSTALL_CANCEL;
+
+_cout " ";
+_cout "  Contacting the MNA uninstall service ...";
+_var {tcss_back} = _script <"{SYS_NROOT}/mnacore/uninstall.ca"> "{tcss_pname}";
+_cout " ";
+_cout "  Uninstall service result :  {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :APPS_MENU;
+
+:APPS_UNINSTALL_CANCEL;
+_cout " ";
+_cout "  Cancelled. The package was not removed.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :APPS_MENU;
+
+:APPS_NOAUTH;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Apps";
+_cout "==================================================";
+_cout " ";
+_cout "  This action requires an administrator account.";
+_cout "  Sign in with an administrator and try again.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :APPS_MENU;
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/apps.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/apps_list.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : Apps > Package list
+//  Argument : "system" or "user"
+//  Copyright TencentCode. TencentCode provides SystemSettings
+//  to FDL. All rights reserved.
+// ============================================================
+
+_if(_cp("{AppData}",'{varspace.null}'))|_var {AppData} = "{temp}";
+
+_var {tcss_scope} = _getargs;
+
+_var {tcss_scandir} = "{SYS_NROOT}/CoralApps";
+_var {tcss_title} = "System apps";
+_if(_cp("{tcss_scope}","user"))|_var {tcss_scandir} = "{PROG_PATH}";
+_if(_cp("{tcss_scope}","user"))|_var {tcss_title} = "User apps";
+
+_var {tcss_listfile} = "{AppData}/tcss_applist.tmp";
+_file_del "{tcss_listfile}";
+_dir_list ("{tcss_listfile}","{tcss_scandir}");
+
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Apps > {tcss_title}";
+_cout "==================================================";
+_cout " ";
+
+_var {tcss_i} = "1";
+_var {tcss_count} = "0";
+
+:APPL_LOOP;
+_var {tcss_line} = _file_read ("{tcss_listfile}","{tcss_i}");
+_if(_cp("{tcss_line}","overline"))|_goto :APPL_DONE;
+
+//Normalize the listed path, then keep package entries only
+_var {tcss_rel} = _str_replace "{tcss_line}" ("{tcss_scandir}/","");
+_if(!_found("{tcss_rel}","/pkgdata.mna"))|_goto :APPL_NEXT;
+
+//Extract the package folder name from the listed path
+_var {tcss_pkgname} = _str_replace "{tcss_rel}" ("/pkgdata.mna","");
+_var {tcss_pkgdir} = "{tcss_scandir}/{tcss_pkgname}";
+
+_sipcfg.open "{tcss_pkgdir}/pkgdata.mna";
+_var {tcss_aname} = _sipcfg AppName;
+_var {tcss_aver} = _sipcfg AppVersion;
+_var {tcss_aprop} = _sipcfg AppProperties;
+_cout "  {tcss_pkgname}";
+_cout "      Name : {tcss_aname}   Version : {tcss_aver}   Type : {tcss_aprop}";
+_var {tcss_count} = _+("{tcss_count}","1");
+_goto :APPL_NEXT;
+
+:APPL_BROKEN;
+_cout "  {tcss_pkgname}   (broken package : pkgdata.mna is missing)";
+
+:APPL_NEXT;
+_var {tcss_i} = _+("{tcss_i}","1");
+_goto :APPL_LOOP;
+
+:APPL_DONE;
+_cout " ";
+_cout "  Total : {tcss_count} package(s)";
+_cout "==================================================";
+_cout "  Press Enter to go back";
+_pause;
+_file_del "{tcss_listfile}";
+_return "ok";
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/apps_list.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/copyright.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : More > Copyright
+//  The only place where the copyright notice is shown.
+// ============================================================
+
+_if(_cp("{CalciumL_FMV}",'{varspace.null}'))|_var {CalciumL_FMV} = "Unknown";
+
+_var {tcss_appver} = "1000";
+
+_clear;
+_cout "==================================================";
+_cout "   System Settings > More > Copyright information";
+_cout "==================================================";
+_cout " ";
+_cout "  Application";
+_cout "    Name        :  TencentCode System Settings";
+_cout "    Version     :  1.0  (Build {tcss_appver})";
+_cout "    Package     :  TencentCode.SystemSettings.mna";
+_cout "    Type        :  systemapps";
+_cout " ";
+_cout "  Copyright notice";
+_cout "    Copyright TencentCode. All rights reserved.";
+_cout " ";
+_cout "    TencentCode provides SystemSettings to FDL.";
+_cout " ";
+_cout "  Notices";
+_cout "    This application is a Coral system management";
+_cout "    panel. Coral and the Calcium runtime are provided";
+_cout "    by their respective owners.";
+_cout "    Powered by Calcium Script. (FMV : {CalciumL_FMV})";
+_cout " ";
+_cout "==================================================";
+_cout "  Press Enter to go back";
+_pause;
+_return "ok";
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/copyright.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/more.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : More
+//  Copyright TencentCode. All rights reserved.
+//  TencentCode provides SystemSettings to FDL.
+// ============================================================
+
+:MORE_MENU;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > More";
+_cout "==================================================";
+_cout " ";
+_cout "   [1] Copyright information";
+_cout " ";
+_cout "   [0] Back";
+_cout "==================================================";
+_prt " Select an option >";
+_var {tcss_in} = _getline;
+_if(_cp("{tcss_in}","1"))|_script <"{AppDir}/pages/copyright.ca">;
+_if(_cp("{tcss_in}","0"))|_return "ok";
+_goto :MORE_MENU;
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/more.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/security.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : Security
+//  Shows the security settings of this device only.
+// ============================================================
+
+_if(_cp("{NATVC_USERPROFILE}",'{varspace.null}'))|_var {NATVC_USERPROFILE} = "";
+_if(_cp("{IsSystemRunningOnSafeMode}",'{varspace.null}'))|_var {IsSystemRunningOnSafeMode} = "0";
+_if(_cp("{boot_rsmode}",'{varspace.null}'))|_var {boot_rsmode} = "false";
+
+_var {tcss_safemode} = "Normal mode";
+_if(_cp("{IsSystemRunningOnSafeMode}","1"))|_var {tcss_safemode} = "SAFE MODE";
+_if(_cp("{boot_rsmode}","true"))|_var {tcss_safemode} = "SAFE MODE";
+
+_var {tcss_bltrust} = "Unknown";
+_var {tcss_filecheck} = "Unknown";
+_if(_file_exist "{NATVC_CONFIG}/SYSTEM")|_sipcfg.open "{NATVC_CONFIG}/SYSTEM";
+_if(_file_exist "{NATVC_CONFIG}/SYSTEM")|_var {tcss_bltrust} = _sipcfg BL_TrustCheck;
+_if(_file_exist "{NATVC_CONFIG}/SYSTEM")|_var {tcss_filecheck} = _sipcfg FILECHECK;
+_if(_cp("{tcss_bltrust}",'{varspace.null}'))|_var {tcss_bltrust} = "Not configured";
+_if(_cp("{tcss_filecheck}",'{varspace.null}'))|_var {tcss_filecheck} = "Not configured";
+
+_var {tcss_mna} = "Allowed";
+_if(_file_exist "{NATVC_USERPROFILE}/userconfig")|_sipcfg.open "{NATVC_USERPROFILE}/userconfig";
+_if(_file_exist "{NATVC_USERPROFILE}/userconfig")|_var {tcss_mnacheck} = _sipcfg nomodernapp;
+_if(_cp("{tcss_mnacheck}","true"))|_var {tcss_mna} = "Blocked by user policy";
+
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Security";
+_cout "==================================================";
+_cout " ";
+_cout "  Security settings of this device :";
+_cout " ";
+_cout "  Boot state              :  {tcss_safemode}";
+_cout "  Bootloader trust check  :  {tcss_bltrust}";
+_cout "  System file check       :  {tcss_filecheck}";
+_cout "  App install policy      :  {tcss_mna}";
+_cout " ";
+_cout "==================================================";
+_cout "  Press Enter to go back";
+_pause;
+_return "ok";
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/security.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/systeminfo.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : System
+//  Copyright TencentCode. TencentCode provides SystemSettings
+//  to FDL. All rights reserved.
+// ============================================================
+
+//Guard display variables
+_if(_cp("{MAF_OEM}",'{varspace.null}'))|_var {MAF_OEM} = "Unknown Device";
+_if(_cp("{Hardware}",'{varspace.null}'))|_var {Hardware} = "Unknown Hardware";
+_if(_cp("{Platform}",'{varspace.null}'))|_var {Platform} = "Unknown Platform";
+_if(_cp("{BootMethod}",'{varspace.null}'))|_var {BootMethod} = "Unknown";
+_if(_cp("{last_startup}",'{varspace.null}'))|_var {last_startup} = "Unknown";
+_if(_cp("{SYS_ACT_STATUS}",'{varspace.null}'))|_var {SYS_ACT_STATUS} = "Unknown";
+_if(_cp("{NATVC_isAdmin}",'{varspace.null}'))|_var {NATVC_isAdmin} = "0";
+_if(_cp("{NATVC_EDITION}",'{varspace.null}'))|_var {NATVC_EDITION} = "Unknown Edition";
+_if(_cp("{SYS_KERNEL_CODENAME}",'{varspace.null}'))|_var {SYS_KERNEL_CODENAME} = "Unknown";
+_if(_cp("{NATVC_DISK}",'{varspace.null}'))|_var {NATVC_DISK} = "Unknown";
+
+_var {tcss_role} = "Standard User";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_role} = "Administrator";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_role} = "System Administrator";
+
+_clear;
+_cout "==================================================";
+_cout "   System Settings > System";
+_cout "==================================================";
+_cout " ";
+_cout "  Device name       :  {MAF_OEM}";
+_cout "  Hardware          :  {Hardware}";
+_cout "  Platform          :  {Platform}";
+_cout "  Firmware          :  {BootMethod}";
+_cout " ";
+_cout "  Operating system  :  {SYS_NAME} {NATVC_EDITION}";
+_cout "  Kernel version    :  {SYS_KERNEL_VID}  (Codename : {SYS_KERNEL_CODENAME})";
+_cout "  OS location       :  {NATVC_DISK}";
+_cout " ";
+_cout "  Current user      :  {NATVC_USERNAME} ({NATVC_WHOIS})";
+_cout "  Account level     :  {tcss_role}";
+_cout "  Activation status :  {SYS_ACT_STATUS}";
+_cout " ";
+_cout "==================================================";
+_cout "  Press Enter to go back";
+_pause;
+_return "ok";
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/systeminfo.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pages/updates.ca);
+_$directmode;
+
+// ============================================================
+//  TencentCode System Settings - Page : Update
+//  Powered by Coral System Update Services (CSU)
+//  Calls the native CSU core (csucore.ca) for every action.
+// ============================================================
+
+_if(_cp("{SYS_RELEASE_Channel}",'{varspace.null}'))|_var {SYS_RELEASE_Channel} = "Unknown";
+_if(_cp("{SYS_KERNEL_VID}",'{varspace.null}'))|_var {SYS_KERNEL_VID} = "Unknown";
+_if(_cp("{SYS_REG_NAME}",'{varspace.null}'))|_var {SYS_REG_NAME} = "Unknown";
+_if(_cp("{AppData}",'{varspace.null}'))|_var {AppData} = "{temp}";
+_if(_cp("{NATVC_isAdmin}",'{varspace.null}'))|_var {NATVC_isAdmin} = "0";
+
+_var {tcss_csudir} = "{SYS_NROOT}/CoSxS/CoralFDL.SystemUpdateServices.Core";
+_var {tcss_csucore} = "{tcss_csudir}/csucore.ca";
+
+_var {tcss_csustate} = "Not installed";
+_if(_dir_exist "{tcss_csudir}")|_var {tcss_csustate} = "Ready";
+
+_var {tcss_pending} = "None";
+_if(_file_exist "{SYS_NROOT}/SystemUser/TaskUserExecute/task.ca")|_var {tcss_pending} = "Update ready. Restart to apply";
+_if(_file_exist "{SYS_NROOT}/SystemUser/TaskUserExecute/startupTask.ca")|_var {tcss_pending} = "Update ready. Restart to apply";
+
+:UPD_MENU;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Update";
+_cout "==================================================";
+_cout " ";
+_cout "  Current build   :  {SYS_REG_NAME}  (OS build {SYS_KERNEL_VID})";
+_cout "  Release channel :  {SYS_RELEASE_Channel}";
+_cout "  CSU component   :  {tcss_csustate}";
+_cout "  Pending update  :  {tcss_pending}";
+_cout " ";
+_cout "   [1] Check for updates";
+_cout "   [2] Install the update now       (Administrator)";
+_cout "   [3] Cancel a pending update      (Administrator)";
+_cout "   [4] Clean up the update cache    (Administrator)";
+_cout " ";
+_cout "   [0] Back";
+_cout "==================================================";
+_prt " Select an option >";
+_var {tcss_in} = _getline;
+_if(_cp("{tcss_in}","1"))|_goto :UPD_CHECK;
+_if(_cp("{tcss_in}","2"))|_goto :UPD_INSTALL;
+_if(_cp("{tcss_in}","3"))|_goto :UPD_CANCEL;
+_if(_cp("{tcss_in}","4"))|_goto :UPD_CLEANUP;
+_if(_cp("{tcss_in}","0"))|_return "ok";
+_goto :UPD_MENU;
+
+// ------------------------------------------------------------
+// [1] Check for updates (CSU : checkupdate)
+//     Returns : Latest / NeedUpdate / false
+// ------------------------------------------------------------
+:UPD_CHECK;
+_if(!_dir_exist "{tcss_csudir}")|_goto :UPD_NOCSU;
+_clear;
+_cout "   System Settings > Update > Check for updates";
+_cout " ";
+_cout "  Contacting the Coral System Update Service ...";
+_cout "  This may take a moment. Do not close the app.";
+_cout " ";
+_var {tcss_back} = _script <"{tcss_csucore}"> "checkupdate";
+
+_if(_cp("{tcss_back}","NeedUpdate"))|_goto :UPD_CHECK_NEED;
+_if(_cp("{tcss_back}","Latest"))|_goto :UPD_CHECK_LATEST;
+_goto :UPD_CHECK_UNKNOWN;
+
+:UPD_CHECK_NEED;
+_cout "  Result :  A new version is available for this device.";
+_var {tcss_latest} = "Unknown";
+_if(_file_exist "{SYS_NROOT}/SystemUpdate/Downloading/catalog.cfg")|_sipcfg.open "{SYS_NROOT}/SystemUpdate/Downloading/catalog.cfg";
+_if(_file_exist "{SYS_NROOT}/SystemUpdate/Downloading/catalog.cfg")|_var {tcss_latest} = _sipcfg LatestVersion;
+_cout "  Latest version :  {tcss_latest}";
+_cout "  Use [2] Install the update now to prepare it.";
+_goto :UPD_CHECK_END;
+
+:UPD_CHECK_LATEST;
+_cout "  Result :  This device is up to date.";
+_goto :UPD_CHECK_END;
+
+:UPD_CHECK_UNKNOWN;
+_cout "  Result :  CSU returned :  {tcss_back}";
+_cout "  If an error page was shown above, follow its code.";
+
+:UPD_CHECK_END;
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :UPD_MENU;
+
+// ------------------------------------------------------------
+// [2] Install the update (CSU : installupdate)
+//     Returns : NotNeedUpdate / ExistingUpdateNeedInstall /
+//               NeedRestart / false
+// ------------------------------------------------------------
+:UPD_INSTALL;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :UPD_NOAUTH;
+_if(!_dir_exist "{tcss_csudir}")|_goto :UPD_NOCSU;
+
+_clear;
+_cout "   System Settings > Update > Install the update now";
+_cout " ";
+_cout "  The update package will be downloaded from the CSU";
+_cout "  server and staged for deployment. Do not power off";
+_cout "  the device during this operation.";
+_cout " ";
+_prt "  Type INSTALL to continue >";
+_var {tcss_ok} = _getline;
+_if(!_cp("{tcss_ok}","INSTALL"))|_goto :UPD_OP_CANCEL;
+
+_cout " ";
+_cout "  Contacting the Coral System Update Service ...";
+_var {tcss_back} = _script <"{tcss_csucore}"> "installupdate";
+
+_if(_cp("{tcss_back}","NeedRestart"))|_goto :UPD_INST_OK;
+_if(_cp("{tcss_back}","NotNeedUpdate"))|_goto :UPD_INST_NONEED;
+_if(_cp("{tcss_back}","ExistingUpdateNeedInstall"))|_goto :UPD_INST_EXIST;
+
+_cout "  Result :  {tcss_back}";
+_cout "  If an error page was shown above, follow its code.";
+_goto :UPD_INST_END;
+
+:UPD_INST_OK;
+_cout "  Result :  The update was downloaded and staged.";
+_cout "  It will be applied during the next system restart.";
+_goto :UPD_INST_END;
+
+:UPD_INST_NONEED;
+_cout "  Result :  This device is already on the latest version.";
+_goto :UPD_INST_END;
+
+:UPD_INST_EXIST;
+_cout "  Result :  An update is already prepared on this device.";
+_cout "  Restart the system to apply it, or use [3] Cancel.";
+_goto :UPD_INST_END;
+
+:UPD_INST_END;
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :UPD_MENU;
+
+// ------------------------------------------------------------
+// [3] Cancel a pending update (CSU : cancelupdate)
+// ------------------------------------------------------------
+:UPD_CANCEL;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :UPD_NOAUTH;
+_if(!_dir_exist "{tcss_csudir}")|_goto :UPD_NOCSU;
+
+_clear;
+_cout "   System Settings > Update > Cancel a pending update";
+_cout " ";
+_cout "  This removes the staged restart tasks and clears the";
+_cout "  update cache. The current system stays unchanged.";
+_prt "  Type CONFIRM to cancel the pending update >";
+_var {tcss_ok} = _getline;
+_if(!_cp("{tcss_ok}","CONFIRM"))|_goto :UPD_OP_CANCEL;
+
+_cout " ";
+_var {tcss_back} = _script <"{tcss_csucore}"> "cancelupdate";
+_cout "  Result :  {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :UPD_MENU;
+
+// ------------------------------------------------------------
+// [4] Clean up the update cache (CSU : cleanup)
+// ------------------------------------------------------------
+:UPD_CLEANUP;
+_var {tcss_auth} = "0";
+_if(_cp("{NATVC_isAdmin}","1"))|_var {tcss_auth} = "1";
+_if(_cp("{NATVC_isAdmin}","2"))|_var {tcss_auth} = "1";
+_if(_cp("{tcss_auth}","0"))|_goto :UPD_NOAUTH;
+_if(!_dir_exist "{tcss_csudir}")|_goto :UPD_NOCSU;
+
+_clear;
+_cout "   System Settings > Update > Clean up the update cache";
+_cout " ";
+_prt "  Type CONFIRM to remove all cached update files >";
+_var {tcss_ok} = _getline;
+_if(!_cp("{tcss_ok}","CONFIRM"))|_goto :UPD_OP_CANCEL;
+
+_cout " ";
+_var {tcss_back} = _script <"{tcss_csucore}"> "cleanup";
+_cout "  Result :  {tcss_back}";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :UPD_MENU;
+
+// ------------------------------------------------------------
+// Common result pages
+// ------------------------------------------------------------
+:UPD_OP_CANCEL;
+_cout " ";
+_cout "  Cancelled. Nothing was changed.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :UPD_MENU;
+
+:UPD_NOCSU;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Update";
+_cout "==================================================";
+_cout " ";
+_cout "  The Coral System Update Services (CSU) component is";
+_cout "  not installed on this device. Updates cannot be";
+_cout "  checked or installed. Contact your system vendor.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :UPD_MENU;
+
+:UPD_NOAUTH;
+_clear;
+_cout "==================================================";
+_cout "   System Settings > Update";
+_cout "==================================================";
+_cout " ";
+_cout "  This action requires an administrator account.";
+_cout "  Sign in with an administrator and try again.";
+_cout " ";
+_cout "  Press Enter to go back";
+_pause;
+_goto :UPD_MENU;
+$CSTP_FILE_RECORD_MARK_ID_END(/pages/updates.ca);
+$CSTP_FILE_RECORD_MARK_ID_START(/pkgdata.mna);
+//SIPCFG Package Data
+$AppName=TencentCode System Settings;
+$Setup=TencentCode.SystemSettings.mna;
+$AppProperties=systemapps; // systemapps or userapps
+
+$AppVersion=1000;
+
+//Copyright TencentCode. All rights reserved.
+//TencentCode provides SystemSettings to FDL.
+$CSTP_FILE_RECORD_MARK_ID_END(/pkgdata.mna);
